@@ -1,0 +1,67 @@
+
+
+import torch
+boxes = torch.ones(7,4)
+def object_detection_api(img_path, threshold=0.5, rect_th=3, text_size=3, text_th=3):
+
+
+
+Bajar el tiempo de deteccion.
+Minimizar lo más posible el tiempo de ejecucion.
+Ser lo más pythonic posible.
+
+Transforms in images
+https://discuss.pytorch.org/t/pytorch-pil-to-tensor-and-vice-versa/6312
+
+
+Improve visualization non real time.
+
+Make random colors for each mask
+.detach()?
+Augmenting images -> https://pytorch.org/vision/stable/transforms.html
+
+
+    ####################################
+    # Visualizing bounding boxes
+    ####################################
+    from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
+
+    weights = FasterRCNN_ResNet50_FPN_Weights.DEFAULT
+    transforms = weights.transforms()
+
+    images_test_list = [transforms(d) for d in img_list]
+    model = fasterrcnn_resnet50_fpn(weights=weights, progress=False)
+    model = model.eval()
+
+    outputs_pred = model(images_test_list)  # get a list of images with the same size, in this case only one image
+    print(f'outputs==>>{outputs_pred}')
+
+    detected_output = outputs_pred[0]
+    detected_bbox = detected_output['boxes']
+
+    print("For the image analysed, the following instances were detected:")
+    print([weights.meta["categories"][label] for label in detected_output['labels']])
+    label_str = [weights.meta["categories"][label] for label in detected_output['labels']]
+
+    pred_classes = [COCO_INSTANCE_CATEGORY_NAMES[i] for i in outputs[0]['labels'].cpu().numpy()]
+    ####################################
+
+    ####################################
+    #
+    ####################################
+    score_threshold = .8
+    detected_objects_with_boxes = [
+        draw_bounding_boxes(image_int, boxes=outputs_pred['boxes'][outputs_pred['scores'] > score_threshold], width=4)
+        for image_int, outputs_pred in zip(img_list, outputs_pred)
+    ]
+    show(detected_objects_with_boxes)
+    ####################################
+
+
+
+predictions_model[0]['scores'].detach().cpu().numpy()
+final_masks = masks_filtered > 0.5  # ?
+final_masks = final_masks.squeeze(1)  # ?
+Image.fromarray(merged_masks.mul(255).byte().cpu().numpy())
+
+

@@ -1,0 +1,61 @@
+# TEMPLATE EMPTY HEADER
+"""
+Project:
+Author:
+Date:
+Description:
+...
+
+Use:
+"""
+
+# TEMPLATE PROJECT
+
+"""
+Project: Object detector and segmentation tutorial https://github.com/juancarlosmiranda/object_detector_tutorial
+Author: Juan Carlos Miranda. https://github.com/juancarlosmiranda
+Date: February 2021
+Description:
+
+Sample code from the TorchVision 0.3 Object Detection Finetuning Tutorial. http://pytorch.org/tutorials/intermediate/torchvision_tutorial.html
+
+Explained by David Macedo.
+https://github.com/dlmacedo/starter-academic/blob/master/content/courses/deeplearning/notebooks/pytorch/finetuning_torchvision_models_tutorial.ipynb
+
+Adapted by Juan Carlos Miranda as a programming practice, February 2021.
+
+Use:
+"""
+
+
+# HEADER FOR BASH SCRIPTS
+# Project: Object detector and segmentation tutorial https://github.com/juancarlosmiranda/object_detector_tutorial
+# Author: Juan Carlos Miranda. https://github.com/juancarlosmiranda
+# Date: February 2021
+# Description:
+#
+# Sample code from the TorchVision 0.3 Object Detection Finetuning Tutorial. http://pytorch.org/tutorials/intermediate/torchvision_tutorial.html
+#
+# Explained by David Macedo.
+# https://github.com/dlmacedo/starter-academic/blob/master/content/courses/deeplearning/notebooks/pytorch/finetuning_torchvision_models_tutorial.ipynb
+#
+# Adapted by Juan Carlos Miranda as a programming practice, February 2021.
+#
+# Use:
+#
+
+
+REM HEADER FOR WINDOW SYSTEMS
+REM Project: Object detector and segmentation tutorial https://github.com/juancarlosmiranda/object_detector_tutorial
+REM Author: Juan Carlos Miranda. https://github.com/juancarlosmiranda
+REM Date: February 2021
+REM Description:
+REM
+REM Sample code from the TorchVision 0.3 Object Detection Finetuning Tutorial. http://pytorch.org/tutorials/intermediate/torchvision_tutorial.html
+REM
+REM Explained by David Macedo.
+REM https://github.com/dlmacedo/starter-academic/blob/master/content/courses/deeplearning/notebooks/pytorch/finetuning_torchvision_models_tutorial.ipynb
+REM
+REM Adapted by Juan Carlos Miranda as a programming practice, February 2021.
+REM
+REM Use:
