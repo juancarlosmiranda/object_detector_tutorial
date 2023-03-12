@@ -49,7 +49,7 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 * [CUDA Toolkit 12.1 Downloads](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local)
 
 
-# Project files
+# Torchvision utilities and Tensors
 
 ## Torchvision examples
 Using Pytorch library to show images and masks.
@@ -59,7 +59,7 @@ Using Pytorch library to show images and masks.
 | torchvision_01.py | From PennFudanPed it uses torchvision library to read a .PNG image, makes transformations using GPU/CPU and show it on the screen. |
 | torchvision_02.py | Takes instance segmentation mask images, transforms from Tensor to Pillow image, after it merges the masks in one image. |
 
-## Tensors examples
+## Use of tensors and transformation of tensors and images
 ![transform_examples](https://github.com/juancarlosmiranda/object_detector_tutorial/blob/main/docs/img/MIND_MAP_COMPONENTS_PYTORCH_TENSORS.png?raw=true)
 
 Basic examples using image transforms offered by torchvision.transforms.functional.
