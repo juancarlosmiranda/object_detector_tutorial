@@ -60,3 +60,4 @@ https://www.geeksforgeeks.org/converting-an-image-to-a-torch-tensor-in-python/
 
 
 Images are 1025 * 205 in .png format 
+Add links in README.md to examples.

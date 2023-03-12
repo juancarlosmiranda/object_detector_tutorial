@@ -108,16 +108,16 @@ Testing bounding box models(BBOX) and mask segmentation models (MASK) sequence i
 
 | Folders                    | Description            |
 |---------------------------|-------------------------|
-| main_pennfudanpen_bbox_01.py | Detecting people using PennFudanPed/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
-| main_pennfudanpen_mask_01.py | Detecting apples using PennFudanPed/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
+| eval_pennfudanpen_bbox_01.py | Detecting people using PennFudanPed/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
+| eval_pennfudanpen_mask_01.py | Detecting apples using PennFudanPed/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
 
 Testing bounding box models(BBOX) and mask segmentation models (MASK) sequence in a normal image.
 
 | Folders                    | Description            |
 |---------------------------|-------------------------|
-| main_story_rgb_bbox_01.py | Detecting people using story_rgb/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
-| main_story_rgb_mask_01.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
-| main_story_rgb_mask_02.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model  saving data in an output/ folder|
+| eval_story_rgb_bbox_01.py | Detecting people using story_rgb/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
+| eval_story_rgb_mask_01.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
+| eval_story_rgb_mask_02.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model  saving data in an output/ folder|
 
 
 Checking the trained weight in a .pth file with a MASK R-CNN model.
@@ -127,7 +127,7 @@ Checking the trained weight in a .pth file with a MASK R-CNN model.
 | main_evaluate_pennfudanpen_code.py | Detecting people using random images from PennFudanPed/ dataset, with torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
 | main_evaluate_people_code.py | Detecting people using test images torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
 
-## Webcam examples RGB camera
+## Webcam examples RGB cameras
 
 | Folders                    | Description            |
 |---------------------------|-------------------------|
