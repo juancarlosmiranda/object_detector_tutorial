@@ -11,7 +11,7 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 * [Models and pre-trained weights](https://pytorch.org/vision/stable/models.html#models-and-pre-trained-weights)
 
 
-# Links to tutorials, useful information
+## Links to tutorials, useful information
 * [David Macêdo](https://github.com/dlmacedo)
 * [Deep Learning courses](https://dlmacedo.com/courses/deeplearning/)
 * [Penn-Fudan Database for Pedestrian Detection and Segmentation](https://www.cis.upenn.edu/~jshi/ped_html/)
@@ -50,14 +50,6 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 
 
 # Project files
-
-## Training code
-
-| Folders                    | Description            |
-|---------------------------|-------------------------|
-| main_free_gpu_cache.py | Tool for clean GPU memory |
-| main_training_code.py | Code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
-| tv-training-code_corrected.py | Original code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
 
 ## Torchvision examples
 Using Pytorch library to show images and masks.
@@ -100,9 +92,18 @@ The result is a binary mask converted.
 | tensor_conversion_03.py | Read images using cv2.imread() conversion. |
 
 
-
 # Model pipelines for bounding box (BBOX) and mask segmentation (MASK)
 
+## Training models
+
+| Folders                    | Description            |
+|---------------------------|-------------------------|
+| main_free_gpu_cache.py | Tool for clean GPU memory |
+| main_training_code.py | Code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
+| tv-training-code_corrected.py | Original code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
+
+
+## Evaluation
 Testing bounding box models(BBOX) and mask segmentation models (MASK) sequence in PennFudanPed/ 
 
 | Folders                    | Description            |
