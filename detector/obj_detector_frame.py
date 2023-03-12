@@ -16,6 +16,7 @@ class ObjectDetectorFrame:
         else:
             # IS NOT BY DEFAULT, loading model pre-trained
             # todo: add if file exists
+            #self.device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
             self.device_selected = torch.device('cpu')
             self.model = get_model_instance_segmentation(self.num_classes)
             self.model.load_state_dict(torch.load(file_path_trained_model))
@@ -29,6 +30,7 @@ class ObjectDetectorFrame:
 
     def draw_bounding_boxes(self, img_path, predicted_boxes):
         # todo: check this variables, where put that
+        # todo: this could be changed using torchvision libraries
         rect_th = 2
         text_size = 3
         text_th = 2

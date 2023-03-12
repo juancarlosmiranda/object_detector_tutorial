@@ -1,0 +1,70 @@
+[main_evaluate_people_code.py]
+With CPU
+---------------
+total_time_model_load=0.7019970417022705
+total_time_eval=3.9109997749328613
+process_time_eval=4.612996816635132
+
+
+With GPU
+---------------
+total_time_model_load=0.9280040264129639
+total_time_eval=2.5403859615325928
+process_time_eval=3.4683899879455566
+
+
+
+
+
+[tensor_conversion_01.py]
+
+With CPU
+---------------
+Main parameters
+path_dataset_images=C:\Users\Usuari\development\object_detector_tutorial\dataset\story_rgb\images
+path_img_to_evaluate_01=C:\Users\Usuari\development\object_detector_tutorial\dataset\story_rgb\images\20210927_114012_k_r2_e_000_150_138_2_0_C.png
+device_selected=cpu
+score_threshold=0.8
+model=MaskRCNN
+total_time_model_load=0.5430750846862793
+total_time_eval=5.214842796325684
+process_time_eval=5.757917881011963
+
+
+
+[main_evaluate_people_code.py]
+
+
+With CPU
+---------------
+------------------------------------
+Main parameters
+------------------------------------
+path_dataset_images=C:\Users\Usuari\development\object_detector_tutorial\dataset\people\images
+path_img_to_evaluate_01=C:\Users\Usuari\development\object_detector_tutorial\dataset\people\images\20210523_red_cross.png
+Image size width=1200 height=1600
+device_selected=cpu
+score_threshold=0.5
+Trained model file_model_path=C:\Users\Usuari\development\object_detector_tutorial\trained_model\MODEL_SAVED.pth
+model=MaskRCNN
+total_time_model_load=0.7320261001586914
+total_time_eval=3.7719998359680176
+process_time_eval=4.504025936126709
+
+With GPU
+---------------
+------------------------------------
+Main parameters
+------------------------------------
+path_dataset_images=C:\Users\Usuari\development\object_detector_tutorial\dataset\people\images
+path_img_to_evaluate_01=C:\Users\Usuari\development\object_detector_tutorial\dataset\people\images\20210523_red_cross.png
+Image size width=1200 height=1600
+device_selected=cuda
+score_threshold=0.5
+Trained model file_model_path=C:\Users\Usuari\development\object_detector_tutorial\trained_model\MODEL_SAVED.pth
+model=MaskRCNN
+total_time_model_load=0.827000617980957
+total_time_eval=2.5475876331329346
+process_time_eval=3.3745882511138916
+
+Process finished with exit code 0

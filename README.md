@@ -25,10 +25,23 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 * [An Introduction to PyTorch Visualization Utilities](https://debuggercafe.com/an-introduction-to-pytorch-visualization-utilities/)
 * [Visualization utilities](https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html)
 * [Transforming and augmenting images](https://pytorch.org/vision/stable/transforms.html)
+* [torchvision - read_image()](https://pytorch.org/vision/main/generated/torchvision.io.read_image.html)
+* [REPURPOSING MASKS INTO BOUNDING BOXES](https://pytorch.org/vision/main/auto_examples/plot_repurposing_annotations.html#sphx-glr-auto-examples-plot-repurposing-annotations-py)
 
 ## Pytorch tensors
 * With video [Introduction to PyTorch Tensors](https://pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html)
+* [TORCH.TENSOR](https://pytorch.org/docs/stable/tensors.html)  
 * [PyTorch PIL to Tensor and vice versa](https://discuss.pytorch.org/t/pytorch-pil-to-tensor-and-vice-versa/6312)
+* [Pytorch Converting tensors to images](https://discuss.pytorch.org/t/converting-tensors-to-images/99482)
+* Good tutorial about Numpy. [Introduction to NumPy and OpenCV](http://vision.deis.unibo.it/~smatt/DIDATTICA/Sistemi_Digitali_M/PDF/Introduction_to_NumPy_and_OpenCV.pdf)
+* [Data transfer to and from PyTorch](https://www.simonwenkel.com/notes/software_libraries/opencv/opencv-cuda-integration.html#accessing-gpumat-as-pytorch-tensor)
+
+
+### Conversions
+* PIL.Image to Tensor. [Converting an image to a Torch Tensor in Python](https://www.geeksforgeeks.org/converting-an-image-to-a-torch-tensor-in-python/)
+* Numpy to PIL. [Convert a NumPy array to an image](https://www.geeksforgeeks.org/convert-a-numpy-array-to-an-image/)
+* [Plot `torch.Tensor` using OpenCV](https://discuss.pytorch.org/t/plot-torch-tensor-using-opencv/20059)
+* [How do I display a single image in PyTorch?](https://stackoverflow.com/questions/53623472/how-do-i-display-a-single-image-in-pytorch)
 
 
 ## Installing tools
@@ -52,13 +65,31 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 |---------------------------|-------------------------|
 | torchvision_01.py | From PennFudanPed it uses torchvision library to read a .PNG image, makes transformations using GPU/CPU and show it on the screen. |
 | torchvision_02.py | Takes instance segmentation mask images, transforms from Tensor to Pillow image, after it merges the masks in one image. |
-| test_pennfudanpen_bbox_01.py | Detecting people using PennFudanPed/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
-| test_pennfudanpen_mask_01.py | Detecting apples using PennFudanPed/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
-| test_story_rgb_bbox_01.py | Detecting people using story_rgb/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
-| test_story_rgb_mask_01.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
-| test_story_rgb_mask_02.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model  saving data in an output folder|
-| test_evaluate_people_code.py | Detecting people using test images torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
-| test_evaluate_pennfudanpen_code.py | Detecting people using random images from PennFudanPed/ dataset, with torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
+| main_pennfudanpen_bbox_01.py | Detecting people using PennFudanPed/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
+| main_pennfudanpen_mask_01.py | Detecting apples using PennFudanPed/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
+| main_story_rgb_bbox_01.py | Detecting people using story_rgb/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
+| main_story_rgb_mask_01.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
+| main_story_rgb_mask_02.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model  saving data in an output folder|
+| main_evaluate_pennfudanpen_code.py | Detecting people using random images from PennFudanPed/ dataset, with torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
+| main_evaluate_people_code.py | Detecting people using test images torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
+
+
+## Tensors examples
+![transform_examples](https://github.com/juancarlosmiranda/object_detector_tutorial/blob/main/docs/img/MIND_MAP_COMPONENTS_PYTORCH_TENSORS.png?raw=true)
+
+Basic examples using image transforms offered by torchvision.transforms.functional.
+
+| Folders                    | Description            |
+|---------------------------|-------------------------|
+| tensor_conversion_pytorch.py | Read images using read_image() conversion, basic pipeline. |
+| tensor_conversion_pil.py | Read images using PIL.Image.open() conversion, basic pipeline. |
+| tensor_conversion_opencv.py | Read images using OpenCV cv2.imread() conversion, basic pipeline. |
+
+| Folders                    | Description            |
+|---------------------------|-------------------------|
+| tensor_conversion_01.py | Read images using read_image() conversion. |
+| tensor_conversion_02.py | Read images using PIL.Image.open() conversion. |
+| tensor_conversion_03.py | Read images using cv2.imread() conversion. |
 
 
 ## Webcam examples RGB camera
@@ -146,5 +177,3 @@ nvidia-driver-470
 nvcc --version
 nvidia-smi
 ```
-
-
