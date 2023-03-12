@@ -22,8 +22,9 @@ import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
 
-import references.detection.transforms as T
 import torchvision.transforms.functional as F
+from helpers.helper_examples import merge_masks
+
 
 from PIL import Image
 
@@ -55,27 +56,6 @@ def get_model_instance_segmentation(num_classes):
     return model
 
 
-def get_transform(train):
-    """
-
-    """
-    transforms = []
-    transforms.append(T.ToTensor())
-    if train:
-        transforms.append(T.RandomHorizontalFlip(0.5))
-    return T.Compose(transforms)
-
-
-def merge_masks(masks):
-    """
-    Return a Tensor with merged masks
-    """
-    merged_mask = masks[0]  # assign the first mask
-    for mask in masks:
-        merged_mask = mask + merged_mask
-
-    return merged_mask
-
 
 def main_evaluate_people_loop():
     print('------------------------------------')
@@ -98,7 +78,6 @@ def main_evaluate_people_loop():
     img_to_eval_name = 'kayaking_20211120.png'
     img_to_eval_name = '20210523_red_cross.png'
     device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    #device_selected = torch.device('cpu')
     path_img_to_eval = os.path.join(path_dataset_images, img_to_eval_name)
     p_img_to_eval = Image.open(path_img_to_eval)  # {PngImageFile}
     img_to_eval_float32 = F.to_tensor(p_img_to_eval)
@@ -132,7 +111,7 @@ def main_evaluate_people_loop():
     start_time_eval = time.time()  # this is the evaluation
     # Data type int_input {Tensor:3}, tensor_input {Tensor:1}
     with torch.no_grad():
-        predictions_model = model(img_to_eval_list)  # todo:? why []?
+        predictions_model = model(img_to_eval_list)
     end_time_eval = time.time()
 
     # -------------------------------------

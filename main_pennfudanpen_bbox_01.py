@@ -37,62 +37,15 @@ from PIL import Image
 
 # deep learning models
 from torchvision.models.detection import fasterrcnn_resnet50_fpn
-from torchvision import transforms as transforms
+
 
 # Drawing on the screen
 from torchvision.utils import draw_bounding_boxes
 
-# GLOBAL
-COCO_INSTANCE_CATEGORY_NAMES = [
-    '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
-    'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'N/A', 'stop sign',
-    'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow',
-    'elephant', 'bear', 'zebra', 'giraffe', 'N/A', 'backpack', 'umbrella', 'N/A', 'N/A',
-    'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball',
-    'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket',
-    'bottle', 'N/A', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl',
-    'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza',
-    'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'N/A', 'dining table',
-    'N/A', 'N/A', 'toilet', 'N/A', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone',
-    'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'N/A', 'book',
-    'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
-]
-
-transform = transforms.Compose([transforms.ToTensor(), ])
-
-
-def read_transform_return(image: Image):
-    """
-    Receives as input an Pillow.Image and returns
-    """
-    image = np.array(image)
-    image_transposed = np.transpose(image, [2, 0, 1])
-    # Convert to uint8 tensor.
-    int_input = torch.tensor(image_transposed)
-    # Convert to float32 tensor.
-    tensor_input = transform(image)
-    tensor_input = torch.unsqueeze(tensor_input, 0)  # ??
-    return int_input, tensor_input
-
-
-def show_image_list(imgs_list):
-    """
-    Show images from tensor data
-    """
-    if not isinstance(imgs_list, list):
-        imgs = [imgs_list]
-    for i, img in enumerate(imgs):
-        img = img.detach()  # TODO: ???
-        p_img_01 = F.to_pil_image(img)  # TODO: ???
-        p_img_01.show()
-
-def show_one_image(t_image):
-    """
-    Show images from tensor data
-    """
-    p_img_01 = F.to_pil_image(t_image)  # TODO: ???
-    p_img_01.show()
-
+from helpers.helper_examples import COCO_INSTANCE_CATEGORY_NAMES
+from helpers.helper_examples import show_one_image
+from helpers.helper_examples import merge_masks
+from helpers.helper_examples import read_transform_return
 
 def main_bbox_pennfundanped():
     print('------------------------------------')
@@ -134,7 +87,8 @@ def main_bbox_pennfundanped():
     # evaluation inside the object detector model, iterative task
     start_time_eval = time.time()  # this is the evaluation
     int_input, tensor_input = read_transform_return(p_img_to_evaluate)
-    predictions_model = model(tensor_input.to(device_selected))
+    with torch.no_grad():
+        predictions_model = model(tensor_input.to(device_selected))
     end_time_eval = time.time()
 
     # TODO: add intermediate layer here

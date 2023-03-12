@@ -17,34 +17,16 @@ Use:
 import os
 import time
 import torch
-import torchvision
 
 # Managing images formats
 import cv2
-import torchvision.transforms.functional as F
 from PIL import Image
+import torchvision.transforms.functional as F
+
+from helpers.helper_examples import merge_masks
 # Deep learning models
 # https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html#instance-seg-output
 from torchvision.models.detection import maskrcnn_resnet50_fpn
-
-
-def merge_masks(masks):
-    """
-    Return a Tensor with merged masks
-    """
-    print('masks.size()->', masks.size())
-    print('masks.size(dim=0)->', masks.size(dim=0))
-    print('masks.size(dim=1)->', masks.size(dim=1))
-    if masks.size(dim=0) == 0:
-        merged_mask = [masks]
-        pass
-    else:
-        merged_mask = masks[0]  # assign the first mask
-
-    for mask in masks:
-        merged_mask = mask + merged_mask
-
-    return merged_mask
 
 
 def tensor_conversion_03():
@@ -66,8 +48,8 @@ def tensor_conversion_03():
     # Open image with Pillow.Image.open() and torchvision.io.read_image()
     # -------------------------------------------
     img_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
-    #img_to_eval_name = '20210523_red_cross.png'
-    img_to_eval_name = 'PATT_01_MIRANDA.png'
+    img_to_eval_name = '20210523_red_cross.png'
+    #img_to_eval_name = 'PATT_01_MIRANDA.png'
     path_img_to_eval = os.path.join(path_dataset_images, img_to_eval_name)
     cv_img_to_eval = cv2.imread(path_img_to_eval)  # ndarray:(H,W, 3)
     img_to_eval_float32 = F.to_tensor(cv_img_to_eval)
@@ -78,7 +60,7 @@ def tensor_conversion_03():
     # ------------------------------------------
     # Model initialization for object prediction
     # -------------------------------------------
-    score_threshold = 0.7
+    score_threshold = 0.6
     start_time_model_load = time.time()
     model = maskrcnn_resnet50_fpn(pretrained=True)
     model.to(device_selected)
@@ -125,13 +107,13 @@ def tensor_conversion_03():
     total_time_model_load = end_time_model_load - start_time_model_load
     total_time_eval = end_time_eval - start_time_eval
     process_time_eval = total_time_model_load + total_time_eval
-    #w, h = p_img_to_eval.size
+    w, h, channel = cv_img_to_eval.shape
     print('------------------------------------')
     print(f'Main parameters')
     print('------------------------------------')
     print(f'path_dataset_images={path_dataset_images}')
     print(f'path_img_to_evaluate_01={path_img_to_eval}')
-    #print(f'Image size width={w} height={h}')
+    print(f'Image size width={w} height={h}')
     print(f'device_selected={device_selected}')
     print(f'score_threshold={score_threshold}')
     print(f'model={type(model).__name__}')

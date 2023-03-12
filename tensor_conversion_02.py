@@ -20,73 +20,20 @@ Use:
 import os
 import time
 import torch
-import torchvision
-#import numpy as np
 
 # Managing images formats
-from torchvision.io import read_image
 from PIL import Image
 import torchvision.transforms.functional as F
+
+from helpers.helper_examples import merge_masks
 
 # Deep learning models
 # https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html#instance-seg-output
 from torchvision.models.detection import maskrcnn_resnet50_fpn
 
-# Drawing on the screen
-from torchvision.utils import draw_bounding_boxes
-from torchvision.utils import draw_segmentation_masks
-
-# GLOBAL
-COCO_INSTANCE_CATEGORY_NAMES = [
-    '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
-    'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'N/A', 'stop sign',
-    'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow',
-    'elephant', 'bear', 'zebra', 'giraffe', 'N/A', 'backpack', 'umbrella', 'N/A', 'N/A',
-    'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball',
-    'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket',
-    'bottle', 'N/A', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl',
-    'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza',
-    'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'N/A', 'dining table',
-    'N/A', 'N/A', 'toilet', 'N/A', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone',
-    'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'N/A', 'book',
-    'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
-]
-
-
-def show_image_list(imgs_list):
-    """
-    Show images from tensor data
-    """
-    if not isinstance(imgs_list, list):
-        imgs = [imgs_list]
-    for i, img in enumerate(imgs):
-        img = img.detach()  # TODO: ???
-        p_img_01 = F.to_pil_image(img)  # TODO: ???
-        p_img_01.show()
-
-
-def show_one_image(t_image):
-    """
-    Show images from tensor data
-    """
-    p_img_01 = F.to_pil_image(t_image)  # TODO: ???
-    p_img_01.show()
-
-
-def merge_masks(masks):
-    """
-    Return a Tensor with merged masks
-    """
-    merged_mask = masks[0]  # assign the first mask
-    for mask in masks:
-        merged_mask = mask + merged_mask
-
-    return merged_mask
-
-
 def tensor_conversion_02():
     print('------------------------------------')
-    print('TENSOR CONVERSION 02')
+    print('Using PIL.Image.open() MASK R-CNN tensor conversion mask segmentation.')
     print('------------------------------------')
     main_path_project = os.path.abspath('.')
     device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -102,8 +49,7 @@ def tensor_conversion_02():
     # -------------------------------------------
     # Open image with Pillow.Image.open()
     # -------------------------------------------
-    #img_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
-    img_to_eval_name = '20210523_red_cross.png'
+    img_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
     path_image_to_eval = os.path.join(path_dataset_images, img_to_eval_name)
     p_img_to_eval = Image.open(path_image_to_eval)  # {PngImageFile}
     img_to_eval_float32 = F.to_tensor(p_img_to_eval)  # {Tensor with values between 0..1}
@@ -133,23 +79,17 @@ def tensor_conversion_02():
     # -------------------------------------
     pred_boxes = predictions_model[0]['boxes'].detach().cpu().numpy()
     pred_scores = predictions_model[0]['scores'].detach().cpu().numpy()
-    pred_labels = [COCO_INSTANCE_CATEGORY_NAMES[i] for i in predictions_model[0]['labels'].cpu().numpy()]
     pred_masks = predictions_model[0]['masks']
 
     # -------------------------------------
     # Filtering predictions according to rules
     # -------------------------------------
-    #boxes_filtered = pred_boxes[pred_scores >= score_threshold].astype(np.int32)
-    #labels_filtered = pred_labels[:len(boxes_filtered)]
     masks_filtered = pred_masks[pred_scores >= score_threshold]
     final_masks = masks_filtered > 0.5  # ?
     final_masks = final_masks.squeeze(1)  # ?
     # -------------------------------------
     # It displays the results on the screen according to the colours.
     # -------------------------------------
-    #colours = np.random.randint(0, 255, size=(len(boxes_filtered), 3))  # random colours
-    #colours_to_draw = [tuple(color) for color in colours]
-
 
     # ----------------------------------
     # merged binary masks example from predictions, save binary image detected by model
@@ -163,12 +103,13 @@ def tensor_conversion_02():
     total_time_model_load = end_time_model_load - start_time_model_load
     total_time_eval = end_time_eval - start_time_eval
     process_time_eval = total_time_model_load + total_time_eval
-    # w, h = p_img_to_evaluate.size
+    w, h = p_img_to_eval.size
     print('------------------------------------')
     print(f'Main parameters')
+    print('------------------------------------')
     print(f'path_dataset_images={path_dataset_images}')
     print(f'path_img_to_evaluate_01={path_image_to_eval}')
-    # print(f'Image size width={w} height={h}')
+    print(f'Image size width={w} height={h}')
     print(f'device_selected={device_selected}')
     print(f'score_threshold={score_threshold}')
     print(f'model={type(model).__name__}')

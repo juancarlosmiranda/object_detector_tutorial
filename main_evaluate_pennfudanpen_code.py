@@ -21,10 +21,14 @@ import torch
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
+
 import references.detection.transforms as T
+import torchvision.transforms.functional as F
 
 from penn_fundan_dataset import PennFudanDataset
 from PIL import Image
+from helpers.helper_examples import merge_masks
+from helpers.helper_examples import get_transform
 
 def get_model_instance_segmentation(num_classes):
     # load an instance segmentation model pre-trained pre-trained on COCO
@@ -50,18 +54,6 @@ def get_model_instance_segmentation(num_classes):
     print('num_classes -->', num_classes)
 
     return model
-
-
-def get_transform(train):
-    """
-    If it is training mode, the function will flip images. When you want to upload for test, you don't need this
-    train=True, you should put train=False
-    """
-    transforms = []
-    transforms.append(T.ToTensor())
-    if train:
-        transforms.append(T.RandomHorizontalFlip(0.5))
-    return T.Compose(transforms)
 
 
 def main_evaluate_pennfundanpen_loop():
@@ -118,7 +110,6 @@ def main_evaluate_pennfundanpen_loop():
         predictions_models = model([t_img_to_eval.to(device_selected)])
     end_time_eval = time.time()
 
-
     pred_mask_t = predictions_models[0]['masks'][0, 0].mul(255).byte().cpu().numpy()
     p_img = Image.fromarray(t_img_to_eval.mul(255).permute(1, 2, 0).byte().numpy())
     p_pred_mask = Image.fromarray(pred_mask_t)
@@ -142,6 +133,7 @@ def main_evaluate_pennfundanpen_loop():
     print(f'model={type(model).__name__}')
     print(f'total_time_model_load={total_time_model_load}')
     print(f'total_time_eval={total_time_eval}')
+
 
 if __name__ == "__main__":
     main_evaluate_pennfundanpen_loop()

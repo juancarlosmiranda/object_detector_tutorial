@@ -20,73 +20,22 @@ Use:
 import os
 import time
 import torch
-import torchvision
-import numpy as np
 
 # Managing images formats
 from torchvision.io import read_image
 from PIL import Image
 import torchvision.transforms.functional as F
 
+from helpers.helper_examples import merge_masks
+
 # Deep learning models
 # https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html#instance-seg-output
 from torchvision.models.detection import maskrcnn_resnet50_fpn
 
-# Drawing on the screen
-from torchvision.utils import draw_bounding_boxes
-from torchvision.utils import draw_segmentation_masks
-
-# GLOBAL
-COCO_INSTANCE_CATEGORY_NAMES = [
-    '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
-    'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'N/A', 'stop sign',
-    'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow',
-    'elephant', 'bear', 'zebra', 'giraffe', 'N/A', 'backpack', 'umbrella', 'N/A', 'N/A',
-    'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball',
-    'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket',
-    'bottle', 'N/A', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl',
-    'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza',
-    'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'N/A', 'dining table',
-    'N/A', 'N/A', 'toilet', 'N/A', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone',
-    'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'N/A', 'book',
-    'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
-]
-
-
-def show_image_list(imgs_list):
-    """
-    Show images from tensor data
-    """
-    if not isinstance(imgs_list, list):
-        imgs = [imgs_list]
-    for i, img in enumerate(imgs):
-        img = img.detach()  # TODO: ???
-        p_img_01 = F.to_pil_image(img)  # TODO: ???
-        p_img_01.show()
-
-
-def show_one_image(t_image):
-    """
-    Show images from tensor data
-    """
-    p_img_01 = F.to_pil_image(t_image)  # TODO: ???
-    p_img_01.show()
-
-
-def merge_masks(masks):
-    """
-    Return a Tensor with merged masks
-    """
-    merged_mask = masks[0]  # assign the first mask
-    for mask in masks:
-        merged_mask = mask + merged_mask
-
-    return merged_mask
-
 
 def tensor_conversion_01():
     print('------------------------------------')
-    print('TENSOR CONVERSION 01')
+    print('Using read_image() MASK R-CNN tensor conversion mask segmentation.')
     print('------------------------------------')
     main_path_project = os.path.abspath('.')
     device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -103,7 +52,6 @@ def tensor_conversion_01():
     # Open image with torchvision.io.read_image()
     # -------------------------------------------
     img_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
-    #img_to_eval_name = '20210523_red_cross.png'
     path_img_to_eval = os.path.join(path_dataset_images, img_to_eval_name)
     img_to_eval_int = read_image(path_img_to_eval)  # {Tensor:3} Loads image in tensor format, get Tensor data
     img_to_eval_float32 = F.convert_image_dtype(img_to_eval_int, torch.float32)  # {Tensor with values between 0..1}
@@ -133,7 +81,6 @@ def tensor_conversion_01():
     # -------------------------------------
     pred_boxes = predictions_model[0]['boxes'].detach().cpu().numpy()
     pred_scores = predictions_model[0]['scores'].detach().cpu().numpy()
-    pred_labels = [COCO_INSTANCE_CATEGORY_NAMES[i] for i in predictions_model[0]['labels'].cpu().numpy()]
     pred_masks = predictions_model[0]['masks']
 
     # -------------------------------------
@@ -156,12 +103,11 @@ def tensor_conversion_01():
     total_time_model_load = end_time_model_load - start_time_model_load
     total_time_eval = end_time_eval - start_time_eval
     process_time_eval = total_time_model_load + total_time_eval
-    # w, h = p_img_to_evaluate.size
     print('------------------------------------')
     print(f'Main parameters')
+    print('------------------------------------')
     print(f'path_dataset_images={path_dataset_images}')
     print(f'path_img_to_evaluate_01={path_img_to_eval}')
-    # print(f'Image size width={w} height={h}')
     print(f'device_selected={device_selected}')
     print(f'score_threshold={score_threshold}')
     print(f'model={type(model).__name__}')
@@ -171,6 +117,5 @@ def tensor_conversion_01():
 
 
 if __name__ == '__main__':
-    print('main_masks_story_rgb_01')
     tensor_conversion_01()
     pass

@@ -59,25 +59,30 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 | main_training_code.py | Code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
 | tv-training-code_corrected.py | Original code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
 
-## Examples code
+## Torchvision examples
+Using Pytorch library to show images and masks.
 
 | Folders                    | Description            |
 |---------------------------|-------------------------|
 | torchvision_01.py | From PennFudanPed it uses torchvision library to read a .PNG image, makes transformations using GPU/CPU and show it on the screen. |
 | torchvision_02.py | Takes instance segmentation mask images, transforms from Tensor to Pillow image, after it merges the masks in one image. |
-| main_pennfudanpen_bbox_01.py | Detecting people using PennFudanPed/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
-| main_pennfudanpen_mask_01.py | Detecting apples using PennFudanPed/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
-| main_story_rgb_bbox_01.py | Detecting people using story_rgb/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
-| main_story_rgb_mask_01.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
-| main_story_rgb_mask_02.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model  saving data in an output folder|
-| main_evaluate_pennfudanpen_code.py | Detecting people using random images from PennFudanPed/ dataset, with torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
-| main_evaluate_people_code.py | Detecting people using test images torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
-
 
 ## Tensors examples
 ![transform_examples](https://github.com/juancarlosmiranda/object_detector_tutorial/blob/main/docs/img/MIND_MAP_COMPONENTS_PYTORCH_TENSORS.png?raw=true)
 
 Basic examples using image transforms offered by torchvision.transforms.functional.
+Two ways to call the same function.
+```
+import torchvision.transforms.functional as F
+p_img_01 = F.to_pil_image(tensor_img)
+p_img_01.show()
+```
+```
+import torchvision.transforms as T
+transform = T.ToPILImage()
+transforms.append(T.ToTensor())
+p_img_01 = transform(tensor_img.to(device))
+```
 
 | Folders                    | Description            |
 |---------------------------|-------------------------|
@@ -85,12 +90,41 @@ Basic examples using image transforms offered by torchvision.transforms.function
 | tensor_conversion_pil.py | Read images using PIL.Image.open() conversion, basic pipeline. |
 | tensor_conversion_opencv.py | Read images using OpenCV cv2.imread() conversion, basic pipeline. |
 
+Connecting tensor conversion with deep learning models. Examples using MASK R-CNN (from torchvision.models.detection import maskrcnn_resnet50_fpn, maskrcnn_resnet50_fpn(pretrained=True)).
+The result is a binary mask converted.
+
 | Folders                    | Description            |
 |---------------------------|-------------------------|
 | tensor_conversion_01.py | Read images using read_image() conversion. |
 | tensor_conversion_02.py | Read images using PIL.Image.open() conversion. |
 | tensor_conversion_03.py | Read images using cv2.imread() conversion. |
 
+
+
+# Model pipelines for bounding box (BBOX) and mask segmentation (MASK)
+
+Testing bounding box models(BBOX) and mask segmentation models (MASK) sequence in PennFudanPed/ 
+
+| Folders                    | Description            |
+|---------------------------|-------------------------|
+| main_pennfudanpen_bbox_01.py | Detecting people using PennFudanPed/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
+| main_pennfudanpen_mask_01.py | Detecting apples using PennFudanPed/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
+
+Testing bounding box models(BBOX) and mask segmentation models (MASK) sequence in a normal image.
+
+| Folders                    | Description            |
+|---------------------------|-------------------------|
+| main_story_rgb_bbox_01.py | Detecting people using story_rgb/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
+| main_story_rgb_mask_01.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
+| main_story_rgb_mask_02.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model  saving data in an output/ folder|
+
+
+Checking the trained weight in a .pth file with a MASK R-CNN model.
+
+| Folders                    | Description            |
+|---------------------------|-------------------------|
+| main_evaluate_pennfudanpen_code.py | Detecting people using random images from PennFudanPed/ dataset, with torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
+| main_evaluate_people_code.py | Detecting people using test images torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model and load trained weights from a file .pth |
 
 ## Webcam examples RGB camera
 
@@ -108,6 +142,9 @@ Basic examples using image transforms offered by torchvision.transforms.function
 * GeForce GTX 1050 Ti Mobile.
 * Windows 10
 * Python 3.8.10
+
+## Edition tools
+
 
 ## Python stack environment
 

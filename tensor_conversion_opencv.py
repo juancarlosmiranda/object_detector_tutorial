@@ -42,12 +42,17 @@ def tensor_conversion_opencv():
     img_to_eval_list = [img_to_eval_float32.to(device_selected)]
 
     # convert again to OpenCV
-    cv_new_img = img_to_eval_float32.mul(255).permute(1, 2, 0).detach().cpu().byte().numpy()
+    # mul(255) get multpiply values between the range (0..1)
+    # permute(1, 2, 0) change the columns
+    # byte() convert float dta into by, eg. 250.256 to 251
+    # converts using cpu() to a numpy()
+    cv_new_img = img_to_eval_float32.mul(255).permute(1, 2, 0).detach().byte().cpu().numpy()
     cv2.imshow('showing with cv2', cv_new_img)
     cv2.waitKey()
 
     print('------------------------------------')
     print(f'Main parameters')
+    print('------------------------------------')
     print(f'path_dataset_images={path_dataset_images}')
     print(f'path_img_to_evaluate_01={path_img_to_eval}')
     print(f'img_to_eval_list={img_to_eval_list}')

@@ -10,22 +10,8 @@ Use:
 import os
 import torch
 import torchvision.transforms as T
+import torchvision.transforms.functional as F
 from torchvision.io import read_image
-
-
-def show_images(imgs_list):
-    """
-    From Tensor to PIL Image, it receives a list of images and show them on the screen
-    list of tensors {Tensor: 3}
-    """
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    if not isinstance(imgs_list, list):
-        imgs_list = [imgs_list]  # check if this is a list or not
-
-    for i, img in enumerate(imgs_list):
-        transform = T.ToPILImage()  # conversion in PIL data
-        p_img_01 = transform(img.to(device))  # make transform of tensor in device
-        p_img_01.show()
 
 
 def torchvision_01():
@@ -52,7 +38,6 @@ def torchvision_01():
 
     # device settings and transformations
     device_selected = 'cuda' if torch.cuda.is_available() else 'cpu'
-    transform = T.ToPILImage()  # conversion in PIL data
 
     # reading images using torchvision
     path_image_01 = os.path.join(path_dataset_images, image_01_name)
@@ -61,13 +46,13 @@ def torchvision_01():
     image_01_mask = read_image(path_image_01_mask)
 
     # transformation here
-    p_img_01 = transform(image_01.to(device_selected))  # image_01 is a {Tensor:3}, p_img_01 is a {Image}
+    p_img_01 = F.to_pil_image(image_01_mask.to(device_selected))  # image_01 is a {Tensor:3}, p_img_01 is a {Image}
     p_img_01.show()
 
-    p_img_01_mask = transform(image_01_mask.to(device_selected))  # make transform of tensor in device
+
+    p_img_01_mask = F.to_pil_image(image_01.to(device_selected))  # image_01 is a {Tensor:3}, p_img_01 is a {Image}
     p_img_01_mask.show()
 
 
 if __name__ == '__main__':
-    print('torchvision_01() -> reading images from disk')
     torchvision_01()

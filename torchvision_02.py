@@ -12,21 +12,10 @@ Use:
 """
 import os
 import torch
-import torchvision.transforms as T
+import torchvision.transforms.functional as F
 from torchvision.io import read_image
 from PIL import Image
-
-def merge_masks(masks):
-    """
-    Return a Tensor with merged masks
-    masks is {Tensor: 2}
-    """
-    merged_mask = masks[0]  # assign the first mask
-    for mask in masks:
-        merged_mask = mask + merged_mask
-
-    return merged_mask
-
+from helpers.helper_examples import merge_masks
 
 def torchvision_02():
     """
@@ -52,24 +41,22 @@ def torchvision_02():
 
     # device settings and transformations
     device_selected = 'cuda' if torch.cuda.is_available() else 'cpu'
-    transform = T.ToPILImage()  # conversion in PIL data
 
     # reading images using torchvision
     path_image_01 = os.path.join(path_dataset_images, image_01_name)
     path_mask_01 = os.path.join(path_dataset_masks, image_01_mask_name)
-
     image_01 = read_image(path_image_01)  # Get Tensor data
-    image_mask_01 = read_image(path_mask_01)  # torchvision.io.read_image() get Tensor data
+    image_01_mask = read_image(path_mask_01)  # torchvision.io.read_image() get Tensor data
 
     # We get the unique colors, as these would be the object ids.
-    obj_ids = torch.unique(image_mask_01)  # special function to see how many mask has
+    obj_ids = torch.unique(image_01_mask)  # special function to see how many mask has
 
     # first id is the background, so remove it.
     obj_ids = obj_ids[1:]
 
     # split the color-encoded mask into a set of boolean masks.
     # Note that this snippet would work as well if the masks were float values instead of ints.
-    masks = image_mask_01 == obj_ids[:, None, None]
+    masks = image_01_mask == obj_ids[:, None, None]
 
     [number_of_masks, rows, cols] = masks.size()  # it get the number of masks instances
     print('------------------------------------')
@@ -80,6 +67,9 @@ def torchvision_02():
     print(f'number_of_masks={number_of_masks}')
     print('------------------------------------')
 
+    p_img_01 = F.to_pil_image(image_01_mask.to(device_selected))  # image_01 is a {Tensor:3}, p_img_01 is a {Image}
+    p_img_01.show()
+    
     #----------------------------------
     # merged binary masks example from predictions
     merged_masks = merge_masks(masks)

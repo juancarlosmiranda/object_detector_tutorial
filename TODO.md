@@ -58,3 +58,5 @@ https://www.tutorialspoint.com/how-to-convert-an-image-to-a-pytorch-tensor
 https://stackoverflow.com/questions/66237451/convert-numpy-ndarray-to-pil-and-and-convert-it-to-tensor
 https://www.geeksforgeeks.org/converting-an-image-to-a-torch-tensor-in-python/
 
+
+Images are 1025 * 205 in .png format 
