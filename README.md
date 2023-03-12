@@ -37,7 +37,7 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 * [Data transfer to and from PyTorch](https://www.simonwenkel.com/notes/software_libraries/opencv/opencv-cuda-integration.html#accessing-gpumat-as-pytorch-tensor)
 
 
-### Conversions
+## Conversions between image formats
 * PIL.Image to Tensor. [Converting an image to a Torch Tensor in Python](https://www.geeksforgeeks.org/converting-an-image-to-a-torch-tensor-in-python/)
 * Numpy to PIL. [Convert a NumPy array to an image](https://www.geeksforgeeks.org/convert-a-numpy-array-to-an-image/)
 * [Plot `torch.Tensor` using OpenCV](https://discuss.pytorch.org/t/plot-torch-tensor-using-opencv/20059)
