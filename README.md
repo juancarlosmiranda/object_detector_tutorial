@@ -130,6 +130,8 @@ Checking the trained weight in a .pth file with a MASK R-CNN model.
 
 ## Webcam examples RGB cameras
 
+![webcam_bbox_mask](https://github.com/juancarlosmiranda/object_detector_tutorial/blob/main/docs/img/webcam_bbox_mask.png?raw=true)
+
 | Folders                    | Description            |
 |---------------------------|-------------------------|
 | webcam_basic_loop_01.py | Basic loop to extract frames from webcam without object detection. |
