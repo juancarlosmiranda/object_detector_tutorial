@@ -15,7 +15,7 @@ Use:
 import os
 import time
 import cv2
-from detector.obj_detector_frame import ObjectDetectorFrame
+from detector.obj_detector_frame_01 import ObjectDetectorFrame01
 
 
 def main_loop_webcam():
@@ -23,6 +23,9 @@ def main_loop_webcam():
     # -------------------------------------------
     # Parameters for cameras
     # -------------------------------------------
+    # frame = {ndarray: (240, 320, 3)} H=240 W=320,
+    # W = cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
+    # H = cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
@@ -36,11 +39,11 @@ def main_loop_webcam():
     file_model_path = os.path.join(trained_model_path, file_name_model)
     # -------------------------------------------
     time_1 = time.time()
-    obj_detector = ObjectDetectorFrame(file_model_path)
+    obj_detector = ObjectDetectorFrame01(file_model_path)
     time_2 = time.time()
     time_total = time_2 - time_1
     print('load ObjectDetectorFrame time_total-->', time_total)
-    a_threshold = 0.7
+    a_threshold = 0.6
     # -----------------------------
     while True:
         ret, frame = cap.read()
@@ -48,9 +51,6 @@ def main_loop_webcam():
         # ----------------------------
         # make something with frame
         # ----------------------------
-        # frame = {ndarray: (240, 320, 3)} H=240 W=320,
-        # W = cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-        # H = cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
         analyzed_image = obj_detector.object_detection_in_frame(frame, a_threshold)
         # ----------------------------
 

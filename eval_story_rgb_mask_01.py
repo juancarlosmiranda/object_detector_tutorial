@@ -58,6 +58,9 @@ def main_masks_story_rgb_01():
     path_images_folder = 'images'
     path_dataset_images = os.path.join(path_dataset, path_images_folder)
 
+    score_threshold = 0.8
+    device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+
     # -------------------------------------------
     # Open image with Pillow.Image.open() and torchvision.io.read_image()
     # -------------------------------------------
@@ -65,15 +68,14 @@ def main_masks_story_rgb_01():
     path_image_to_eval = os.path.join(path_dataset_images, image_to_eval_name)
     p_img_to_evaluate = Image.open(path_image_to_eval)  # {PngImageFile}
     # used to draw masks
-    t_img_to_evaluate = read_image(path_image_to_eval)  # {Tensor:3} Loads image in tensor format, get Tensor data
-
+    img_to_eval_int = read_image(path_image_to_eval)  # {Tensor:3} Loads image in tensor format, get Tensor data
+    img_to_eval_float32 = F.convert_image_dtype(img_to_eval_int, torch.float32)
+    img_to_eval_list = [img_to_eval_float32.to(device_selected)]
     # ------------------------------------------
     # Model initialization for object prediction
     # -------------------------------------------
     # loading the trained model only once to reduce time
-    score_threshold = 0.8
     start_time_model_load = time.time()
-    device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     model = maskrcnn_resnet50_fpn(pretrained=True, progress=False)  # (pretrained=True, min_size=800)
     model.to(device_selected)
     model.eval()  # enabling evaluation mode
@@ -86,7 +88,8 @@ def main_masks_story_rgb_01():
     # Data type int_input {Tensor:3}, tensor_input {Tensor:1}
     int_input, tensor_input = read_transform_return(p_img_to_evaluate)  # Used to draw images on screen
     with torch.no_grad():
-        predictions_model = model(tensor_input.to(device_selected))
+#        predictions_model = model(tensor_input.to(device_selected))
+        predictions_model = model(img_to_eval_list)
     end_time_eval = time.time()
 
     # -------------------------------------
@@ -110,7 +113,7 @@ def main_masks_story_rgb_01():
     colours = np.random.randint(0, 255, size=(len(boxes_filtered), 3))  # random colours
     colours_to_draw = [tuple(color) for color in colours]
     result_with_boxes = draw_bounding_boxes(
-        image=int_input,
+        image=img_to_eval_int, #int_input,
         boxes=torch.tensor(boxes_filtered), width=1,
         colors=colours_to_draw,
         labels=labels_filtered,
@@ -125,7 +128,7 @@ def main_masks_story_rgb_01():
 
     # save masks detected
     mask_seg_result = draw_segmentation_masks(
-        image=t_img_to_evaluate,
+        image=img_to_eval_int,
         masks=final_masks,
         colors=colours_to_draw,
         alpha=0.8

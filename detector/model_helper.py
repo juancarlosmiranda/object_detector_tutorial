@@ -38,10 +38,6 @@ def get_model_instance_segmentation(num_classes):
                                                        hidden_layer,
                                                        num_classes)
 
-    #print('in_features -->', in_features)
-    #print('in_features_mask -->', in_features_mask)
-    #print('hidden_layer -->', hidden_layer)
-    #print('num_classes -->', num_classes)
 
     return model
 

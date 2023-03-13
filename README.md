@@ -90,6 +90,7 @@ The result is a binary mask converted.
 | tensor_conversion_01.py | Read images using read_image() conversion. |
 | tensor_conversion_02.py | Read images using PIL.Image.open() conversion. |
 | tensor_conversion_03.py | Read images using cv2.imread() conversion. |
+| tensor_conversion_04.py | Read images using cv2.imread() conversion to model MASK R-CNN and get OpenCV format. This is a good example of conversions in a pipeline with models. |
 
 
 # Model pipelines for bounding box (BBOX) and mask segmentation (MASK)
@@ -131,8 +132,11 @@ Checking the trained weight in a .pth file with a MASK R-CNN model.
 
 | Folders                    | Description            |
 |---------------------------|-------------------------|
-| webcam_basic_loop_01.py | Basic loop to extract frames from webcam. |
-| webcam_obj_detect_01.py | . |
+| webcam_basic_loop_01.py | Basic loop to extract frames from webcam without object detection. |
+| webcam_obj_detect_01.py | It is a simple object detector, it has not enough performance. |
+| webcam_obj_detect_02.py | It is a demo using object detection for BBOX. This get a stream from a webcam and detect objects. |
+| webcam_obj_detect_pre_bbox.py | It is a demo using object detection for BBOX with pre trained default model MASK R-CNN |
+| webcam_obj_detect_pre_mask.py | It is a demo using object detection for MASK with pre trained default model MASK R-CNN |
 
 # Requirements
 

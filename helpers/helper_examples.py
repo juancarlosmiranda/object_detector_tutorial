@@ -99,6 +99,7 @@ def get_transform(train):
 def read_transform_return(image: Image):
     """
     Receives as input an Pillow.Image and returns
+    Mixing numoy arrays and torch
     """
     transform = transforms.Compose([transforms.ToTensor(), ])
     image = np.array(image)
@@ -108,4 +109,5 @@ def read_transform_return(image: Image):
     # Convert to float32 tensor.
     tensor_input = transform(image)
     tensor_input = torch.unsqueeze(tensor_input, 0)  # ??
+    # F.to_tensor(np.transpose(image, [2, 0, 1]))
     return int_input, tensor_input

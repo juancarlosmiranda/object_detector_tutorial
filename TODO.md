@@ -4,14 +4,9 @@ transforme en tensor y la pase al dibujo. Poner cabeceras a todos los archivos C
 el archivo .pth Pasar al nuevo Github con fotos.
 
 ## Ejemplos de conversiones entre vectores
-ndarray to Tensor
-Image to Tensor
 Resolver el warning
 C:\Users\Usuari\development_env\object_detector_venv\lib\site-packages\torchvision\models\_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13
 https://www.geeksforgeeks.org/how-to-read-a-jpeg-or-png-image-in-pytorch/
-
-
-
 
 ## Common operations made with Tensors
 https://github.com/Tgaaly/pytorch-cheatsheet
@@ -43,7 +38,8 @@ Save detected bounding boxes to files.
 ### Dataset management
 
 ### GPU settings in Windows 10
-Use of GPU device in Windows 10. [OK]Solved, it is needed to install CUDA 11.7 and then.
+Use of GPU device in Windows 10. [OK].
+Solved, it is needed to install CUDA 11.7 and then.
 Train in Linux
 Train in Windows.
 Create own dataset.
