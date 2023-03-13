@@ -16,10 +16,11 @@ Use:
 
 import os
 import torch
+import utils
 import gc
 
 
-import utils
+
 from penn_fundan_dataset import PennFudanDataset
 from references.detection.engine import train_one_epoch, evaluate
 from detector.model_helper import get_model_instance_segmentation, get_transform
@@ -64,8 +65,8 @@ def main_loop_training():
     """
     ERROR WITH CUDA: Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 72.00 MiB (GPU 0; 2.00 GiB total capacity; 1.60 GiB already allocated; 0 bytes free; 1.68 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
     """
-    device_selected = torch.device('cpu')
-    #device_selected = torch.device('cuda')
+    #device_selected = torch.device('cpu')
+    device_selected = torch.device('cuda')
 
     print('Configure device ->', device_selected)
     print('num_epochs to train ->', num_epochs)

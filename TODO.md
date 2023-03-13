@@ -57,3 +57,9 @@ https://www.geeksforgeeks.org/converting-an-image-to-a-torch-tensor-in-python/
 
 Images are 1025 * 205 in .png format 
 Add links in README.md to examples.
+
+
+# TRAIN MODELS LINKS
+[Apple Fruit Scab Recognition using Deep Learning and PyTorch](https://debuggercafe.com/apple-fruit-scab-recognition-using-deep-learning-and-pytorch/)
+https://hackernoon.com/pytorch-vs-tensorflow-who-has-more-pre-trained-deep-learning-models
+https://colab.research.google.com/github/amalphonse/SPAIC_sg_fruit_360/blob/master/Ivy_Fruits360_With_Pytorch.ipynb#scrollTo=1B2FZeRqfiYA

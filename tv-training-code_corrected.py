@@ -4,14 +4,14 @@
 import os
 import numpy as np
 import torch
+import utils
 from PIL import Image
 
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
-
 from references.detection.engine import train_one_epoch, evaluate
-import utils
+
 import references.detection.transforms as T
 import gc
 
@@ -114,10 +114,7 @@ def main():
     print('------------------------------------')
     print('MAIN OBJECT DETECTION')
     print('------------------------------------')
-    # home_user = os.path.join('C:', '\\', 'Users', 'Usuari')
-    # main_path_project = os.path.join(home_user, 'PycharmProjects')
     main_path_project = os.path.abspath('.')
-    # path_dataset = os.path.join('C:', '\\', 'Users', 'Usuari', 'PycharmProjects', 'object_detector', 'dataset', 'PennFudanPed')
     dataset_folder = os.path.join('dataset', 'PennFudanPed')
     path_dataset = os.path.join(main_path_project, dataset_folder)
 
