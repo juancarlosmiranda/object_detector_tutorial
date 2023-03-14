@@ -4,9 +4,7 @@ import cv2
 import numpy as np
 import torchvision.transforms.functional as F
 
-
 from torchvision.models.detection import maskrcnn_resnet50_fpn
-#from detector.model_helper import get_model_instance_segmentation
 
 # Drawing on the screen
 # from torchvision.utils import draw_bounding_boxes

@@ -1,11 +1,12 @@
-# README - Object detection and segmentation using PennFudanPed/ dataset
+# Object detection and segmentation using PennFudanPed/ dataset
 
 This folder contains data and various code samples related to using object detectors and object segmentation. The
 original code was adapted from [Pytorch - TorchVision Object Detection Finetuning Tutorial](http://pytorch.org/tutorials/intermediate/torchvision_tutorial.html) and [David Macêdo](https://github.com/dlmacedo) Github. The intent of this code is to cover all stages in the object
 detection and segmentation pipeline as a programming practice. It is true that not all aspects can be covered.
 It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fudan Database from [here](https://www.cis.upenn.edu/~jshi/ped_html/PennFudanPed.zip)
 
-## Models used
+## Models used and tools used
+* Python 3, [Pytorch](https://pytorch.org/.
 * [Mask R-CNN](https://arxiv.org/abs/1703.06870)
 * [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://arxiv.org/abs/1506.01497)
 * [Models and pre-trained weights](https://pytorch.org/vision/stable/models.html#models-and-pre-trained-weights)
@@ -24,6 +25,7 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 * [Example gallery](https://pytorch.org/vision/stable/auto_examples/index.html)
 * [An Introduction to PyTorch Visualization Utilities](https://debuggercafe.com/an-introduction-to-pytorch-visualization-utilities/)
 * [Visualization utilities](https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html)
+  https://pytorch.org/vision/master/auto_examples/plot_visualization_utils.html
 * [Transforming and augmenting images](https://pytorch.org/vision/stable/transforms.html)
 * [torchvision - read_image()](https://pytorch.org/vision/main/generated/torchvision.io.read_image.html)
 * [REPURPOSING MASKS INTO BOUNDING BOXES](https://pytorch.org/vision/main/auto_examples/plot_repurposing_annotations.html#sphx-glr-auto-examples-plot-repurposing-annotations-py)
