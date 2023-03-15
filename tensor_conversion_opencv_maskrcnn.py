@@ -34,7 +34,7 @@ from helpers.helper_examples import COCO_INSTANCE_CATEGORY_NAMES
 from helpers.helper_examples import merge_masks
 
 
-def tensor_conversion_04():
+def tensor_conversion_opencv_maskrcnn():
     print('------------------------------------')
     print('MAIN STORY OBJECT DETECTION EVALUATION')
     print('------------------------------------')
@@ -174,4 +174,4 @@ def tensor_conversion_04():
 
 
 if __name__ == "__main__":
-    tensor_conversion_04()
+    tensor_conversion_opencv_maskrcnn()

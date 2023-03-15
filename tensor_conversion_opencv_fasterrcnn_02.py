@@ -11,88 +11,96 @@ https://github.com/dlmacedo/starter-academic/blob/master/content/courses/deeplea
 
 Adapted by Juan Carlos Miranda as a programming practice, February 2021.
 
-From one image saved in .png, the script opens that image and evaluates it using an object detection model.
-Example based on bounding box detection, in which the model predicts something and an image is showed.
-With label prediction in rectangle.
-1) Load a RGB image
-2) Define an object detector model fasterrcnn_resnet50_fpn
-3) Evaluate RGB image.
-
-
-Codes based on:
-* https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html
-* https://debuggercafe.com/an-introduction-to-pytorch-visualization-utilities/
-
 Use:
 """
+
 import os
 import time
 import torch
 import numpy as np
-import warnings
-warnings.filterwarnings("ignore",
-                        category=UserWarning)  # https://pytorch.org/blog/introducing-torchvision-new-multi-weight-support-api/
 
 # Managing images formats
-import torchvision.transforms.functional as F
-from torchvision.io import read_image
+import cv2
 from PIL import Image
+import torchvision.transforms.functional as F
 
-# deep learning models
+# Deep learning models
+# https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html#instance-seg-output
+# https://pytorch.org/vision/stable/models.html#object-detection
 from torchvision.models.detection import fasterrcnn_resnet50_fpn
+from torchvision.models.detection import FasterRCNN_ResNet50_FPN_Weights
+from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2
+from torchvision.models.detection import FasterRCNN_ResNet50_FPN_V2_Weights
+
+from torchvision.models.detection import fasterrcnn_mobilenet_v3_large_fpn
+from torchvision.models.detection import FasterRCNN_MobileNet_V3_Large_FPN_Weights
 
 # Drawing on the screen
 from torchvision.utils import draw_bounding_boxes
-
 from helpers.helper_examples import COCO_INSTANCE_CATEGORY_NAMES
-from helpers.helper_examples import show_one_image
 from helpers.helper_examples import merge_masks
-from helpers.helper_examples import read_transform_return
 
 
-def main_bbox_pennfundanped():
+def tensor_conversion_opencv_fasterrcnn():
     print('------------------------------------')
-    print('Example BBOX with PennFundanPed dataset')
+    print('MAIN STORY OBJECT DETECTION EVALUATION')
     print('------------------------------------')
     main_path_project = os.path.abspath('.')
+    device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
     # -------------------------------------------
     # Datasets
     # -------------------------------------------
-    dataset_folder = os.path.join('dataset', 'PennFudanPed')  # YOUR_DATASET HERE
+    dataset_folder = os.path.join('dataset', 'testing_performance')
     path_dataset = os.path.join(main_path_project, dataset_folder)
-    path_images_folder = 'PNGImages'
+    path_images_folder = 'images'
     path_dataset_images = os.path.join(path_dataset, path_images_folder)
 
     # -------------------------------------------
-    # Open image with Pillow.Image.open()
+    # Open image with Pillow.Image.open() and torchvision.io.read_image()
     # -------------------------------------------
-    # data about image to evaluate here, open with Pillow
-    img_to_eval_name = 'FudanPed00005.png'
+    img_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
+    #img_to_eval_name = '20210523_red_cross.png'
+    #img_to_eval_name = 'PATT_01_MIRANDA.png'
     path_img_to_eval = os.path.join(path_dataset_images, img_to_eval_name)
-    p_img_to_eval = Image.open(path_img_to_eval)  # {PngImageFile}
+
+    # -------------------------------------------
+    # Opening from file image
+    # -------------------------------------------
+    cv_img_to_eval = cv2.imread(path_img_to_eval)  # ndarray:(H,W, 3)
+    #img_to_eval_float32 = F.to_tensor(cv_img_to_eval)
+    #img_to_eval_list = [img_to_eval_float32.to(device_selected)]
+
+    # -------------------------------------------
+    # Simulating an input as a frame
+    # -------------------------------------------
+    cv_img = cv2.cvtColor(cv_img_to_eval, cv2.COLOR_BGR2RGB)
+    image_transposed = np.transpose(cv_img, [2, 0, 1])
+    img_to_eval_uint8 = torch.tensor(image_transposed)  # used with torchvision.draw_bounding_boxes()
+    img_to_eval_float32 = F.to_tensor(cv_img)
+    img_to_eval_list = [img_to_eval_float32.to(device_selected)]
 
     # ------------------------------------------
     # Model initialization for object prediction
     # -------------------------------------------
-    # loading the trained model only once to reduce time
-    score_threshold = 0.8
+    # C:\Users\Usuari/.cache\torch\hub\checkpoints\fasterrcnn_resnet50_fpn_v2_coco-dd69338a.pth
+    score_threshold = 0.7
     start_time_model_load = time.time()
-    device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    model = fasterrcnn_resnet50_fpn(pretrained=True,
-                                    progress=False)  # (pretrained=True, min_size=800)  # todo: put parameters in variable
+    #weights = FasterRCNN_ResNet50_FPN_Weights
+    #model = fasterrcnn_resnet50_fpn(weights=weights, box_score_thresh=score_threshold)
+    weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+    model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=score_threshold)
     model.to(device_selected)
     model.eval()  # enabling evaluation mode
     end_time_model_load = time.time()
+    # ----------------------------
 
     # -------------------------------------
     # Image evaluation with model
     # -------------------------------------
-    # evaluation inside the object detector model, iterative task
     start_time_eval = time.time()  # this is the evaluation
-    int_input, tensor_input = read_transform_return(p_img_to_eval)
     with torch.no_grad():
-        predictions_model = model(tensor_input.to(device_selected))
+        predictions_model = model(img_to_eval_list)  # todo:? why []?
     end_time_eval = time.time()
 
     # -------------------------------------
@@ -101,38 +109,53 @@ def main_bbox_pennfundanped():
     pred_boxes = predictions_model[0]['boxes'].detach().cpu().numpy()
     pred_scores = predictions_model[0]['scores'].detach().cpu().numpy()
     pred_labels = [COCO_INSTANCE_CATEGORY_NAMES[i] for i in predictions_model[0]['labels'].cpu().numpy()]
+    # ---------------------------------
+    # -------------------------------------
+    # Filtering predictions according to rules
+    # -------------------------------------
+    boxes_filtered = pred_boxes #pred_boxes[pred_scores >= score_threshold].astype(np.int32)
+    labels_filtered = pred_labels #pred_labels[:len(boxes_filtered)]
+    # -------------------------------------
 
     # -------------------------------------
     # Filtering predictions according to rules
     # -------------------------------------
-    boxes_filtered = pred_boxes[pred_scores >= score_threshold].astype(np.int32)
-    labels_filtered = pred_labels[:len(boxes_filtered)]
-    # -------------------------------------
+    #masks_filtered = pred_masks[pred_scores >= score_threshold]
+    #final_masks = masks_filtered > 0.5  # to clean bad pixels
+    #final_masks = final_masks.squeeze(1)  # ?
 
     # -------------------------------------
-    # It displays the results on the screen according to the colours.
+    # Drawing bounding boxes with Pytorch
     # -------------------------------------
     colours = np.random.randint(0, 255, size=(len(boxes_filtered), 3))
     colours_to_draw = [tuple(color) for color in colours]
     result_with_boxes = draw_bounding_boxes(
-        image=int_input,
+        image=img_to_eval_uint8,
         boxes=torch.tensor(boxes_filtered), width=1,
-        colors=colours_to_draw,
+        colors="red", #colours_to_draw,
         labels=labels_filtered,
         fill=True  # this complete fill in bounding box
     )
-    # show_one_image(result_with_boxes) # optional if there are other transformations
+    # ------------------------------------
+    # Conversion from Tensor a PIL.Image
+    # ------------------------------------
     p_result_with_boxes = F.to_pil_image(result_with_boxes)
-    p_result_with_boxes.show()
+    image_drawed_numpy = np.array(p_result_with_boxes)
+    image_drawed = cv2.cvtColor(image_drawed_numpy, cv2.COLOR_RGB2BGR)
+    cv2.imshow('showing with cv2', image_drawed)
+    cv2.waitKey()
 
     # -------------------------------------
     # Display data on screen
     # -------------------------------------
     total_time_model_load = end_time_model_load - start_time_model_load
     total_time_eval = end_time_eval - start_time_eval
-    h, w = p_img_to_eval.size
+    process_time_eval = total_time_model_load + total_time_eval
+    w, h, channel = cv_img_to_eval.shape
+
     print('------------------------------------')
     print(f'Main parameters')
+    print('------------------------------------')
     print(f'path_dataset_images={path_dataset_images}')
     print(f'path_img_to_evaluate_01={path_img_to_eval}')
     print(f'Image size width={w} height={h}')
@@ -141,32 +164,8 @@ def main_bbox_pennfundanped():
     print(f'model={type(model).__name__}')
     print(f'total_time_model_load={total_time_model_load}')
     print(f'total_time_eval={total_time_eval}')
+    print(f'process_time_eval={process_time_eval}')
 
 
-if __name__ == '__main__':
-    print('Testing BBOX object detector')
-    main_bbox_pennfundanped()
-    pass
-
-    # -------------------------------------------
-    # Visualizing bounding boxes
-    # -------------------------------------------
-    # boxes = torch.tensor([[50, 50, 100, 200], [210, 150, 350, 430]], dtype=torch.float)
-    # colors = ["blue", "yellow"]
-    # img_bbox = draw_bounding_boxes(image_01, boxes, colors=colors, width=5)
-    # show(img_bbox)
-
-    # boxes = torch.tensor([
-    #    [135, 50, 210, 365],
-    #    [210, 59, 280, 370],
-    #    [300, 240, 375, 380]
-    # ])
-    # colors = ['red', 'red', 'green']
-    # result = draw_bounding_boxes(
-    #    image=image_01,
-    #    boxes=boxes,
-    #    colors=colors,
-    #    width=3
-    # )
-    # show(result)
-    ####################################
+if __name__ == "__main__":
+    tensor_conversion_opencv_fasterrcnn()

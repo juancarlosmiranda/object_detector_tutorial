@@ -4,7 +4,8 @@ import cv2
 import numpy as np
 import torchvision.transforms.functional as F
 
-from torchvision.models.detection import maskrcnn_resnet50_fpn
+from torchvision.models.detection import maskrcnn_resnet50_fpn_v2
+from torchvision.models.detection import MaskRCNN_ResNet50_FPN_V2_Weights
 
 # Drawing on the screen
 # from torchvision.utils import draw_bounding_boxes
@@ -25,7 +26,9 @@ class ObjectDetectorPreTrainedMASK:
     def __init__(self, file_path_trained_model=None):
         # -----------------------------------------------
         self.device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-        self.model = maskrcnn_resnet50_fpn(pretrained=True, progress=False)
+        score_threshold = 0.7
+        weights = MaskRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+        self.model = maskrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=score_threshold)
         # -----------------------------------------------
         if file_path_trained_model is not None:  # os.path.exists(file_path_trained_model):
             self.model.load_state_dict(torch.load(file_path_trained_model))
@@ -37,7 +40,9 @@ class ObjectDetectorPreTrainedMASK:
     def set_default(self):
         print('set_default')
         self.device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-        self.model = maskrcnn_resnet50_fpn(pretrained=True, progress=False)
+        score_threshold = 0.7
+        weights = MaskRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+        self.model = maskrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=score_threshold)
         self.model.to(self.device_selected)
         self.model.eval()
         pass

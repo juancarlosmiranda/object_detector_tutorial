@@ -4,8 +4,13 @@ import cv2
 import numpy as np
 import torchvision.transforms.functional as F
 
+from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2
+from torchvision.models.detection import FasterRCNN_ResNet50_FPN_V2_Weights
 
-from torchvision.models.detection import maskrcnn_resnet50_fpn
+from torchvision.models.detection import fasterrcnn_mobilenet_v3_large_fpn
+from torchvision.models.detection import FasterRCNN_MobileNet_V3_Large_FPN_Weights
+
+#from torchvision.models.detection import maskrcnn_resnet50_fpn
 #from detector.model_helper import get_model_instance_segmentation
 
 # Drawing on the screen
@@ -26,7 +31,9 @@ class ObjectDetectorPreTrainedBBOX:
     def __init__(self, file_path_trained_model=None):
         # -----------------------------------------------
         self.device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-        self.model = maskrcnn_resnet50_fpn(pretrained=True, progress=False)
+        score_threshold = 0.7
+        weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+        self.model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=score_threshold)
         # -----------------------------------------------
         if file_path_trained_model is not None:  # os.path.exists(file_path_trained_model):
             self.model.load_state_dict(torch.load(file_path_trained_model))
@@ -38,7 +45,12 @@ class ObjectDetectorPreTrainedBBOX:
     def set_default(self):
         print('set_default')
         self.device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-        self.model = maskrcnn_resnet50_fpn(pretrained=True, progress=False)
+        score_threshold = 0.7
+        #weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT
+        #self.model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=score_threshold)
+        weights = FasterRCNN_MobileNet_V3_Large_FPN_Weights.DEFAULT
+        self.model = fasterrcnn_mobilenet_v3_large_fpn(weights=weights, box_score_thresh=score_threshold)
+
         self.model.to(self.device_selected)
         self.model.eval()
         pass
@@ -62,7 +74,6 @@ class ObjectDetectorPreTrainedBBOX:
         # -------------------------------------
         pred_boxes = predictions_model[0]['boxes'].detach().cpu().numpy()
         pred_scores = predictions_model[0]['scores'].detach().cpu().numpy()
-        pred_masks = predictions_model[0]['masks']
         pred_labels = [COCO_INSTANCE_CATEGORY_NAMES[i] for i in predictions_model[0]['labels'].cpu().numpy()]
         # ---------------------------------
 

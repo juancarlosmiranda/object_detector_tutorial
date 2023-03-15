@@ -56,20 +56,20 @@ def main_masks_story_rgb_02():
     # -------------------------------------------
     output_folder = 'output'
     path_output = os.path.join(main_path_project, output_folder)
-    image_01_result_rgb = 'result_rgb_.png'
-    image_01_result_mask = 'result_mask_.png'
+    img_result_rgb = 'result_rgb_.png'
+    img_result_mask = 'result_mask_.png'
 
-    path_image_01_result_rgb = os.path.join(path_output, image_01_result_rgb)
-    path_image_01_result_mask = os.path.join(path_output, image_01_result_mask)
+    path_image_01_result_rgb = os.path.join(path_output, img_result_rgb)
+    path_image_01_result_mask = os.path.join(path_output, img_result_mask)
 
     # -------------------------------------------
     # Open image with Pillow.Image.open() and torchvision.io.read_image()
     # -------------------------------------------
-    image_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
-    path_image_to_eval = os.path.join(path_dataset_images, image_to_eval_name)
-    p_img_to_evaluate = Image.open(path_image_to_eval)  # {PngImageFile}
+    img_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
+    path_img_to_eval = os.path.join(path_dataset_images, img_to_eval_name)
+    p_img_to_eval = Image.open(path_img_to_eval)  # {PngImageFile}
     # used to draw masks
-    t_img_to_evaluate = read_image(path_image_to_eval)  # Get Tensor data
+    t_img_to_eval = read_image(path_img_to_eval)  # Get Tensor data
 
     # ------------------------------------------
     # Model initialization for object prediction
@@ -89,7 +89,7 @@ def main_masks_story_rgb_02():
     # -------------------------------------
     start_time_eval = time.time()  # this is the evaluation
     # Data type int_input {Tensor:3}, tensor_input {Tensor:1}
-    int_input, tensor_input = read_transform_return(p_img_to_evaluate)
+    int_input, tensor_input = read_transform_return(p_img_to_eval)
     with torch.no_grad():
         predictions_model = model(tensor_input.to(device_selected))
     end_time_eval = time.time()
@@ -119,7 +119,7 @@ def main_masks_story_rgb_02():
     colours_to_draw = [tuple(color) for color in colours]
     # save masks detected
     mask_seg_result = draw_segmentation_masks(
-        image=t_img_to_evaluate,
+        image=t_img_to_eval,
         masks=final_masks,
         colors=colours_to_draw,
         alpha=0.8
@@ -143,11 +143,11 @@ def main_masks_story_rgb_02():
     # -------------------------------------
     total_time_model_load = end_time_model_load - start_time_model_load
     total_time_eval = end_time_eval - start_time_eval
-    w, h = p_img_to_evaluate.size
+    w, h = p_img_to_eval.size
     print('------------------------------------')
     print(f'Main parameters')
     print(f'path_dataset_images={path_dataset_images}')
-    print(f'path_img_to_evaluate_01={path_image_to_eval}')
+    print(f'path_img_to_evaluate_01={path_img_to_eval}')
     print(f'Image size width={w} height={h}')
     print(f'device_selected={device_selected}')
     print(f'score_threshold={score_threshold}')

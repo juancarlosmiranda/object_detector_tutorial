@@ -63,3 +63,10 @@ Add links in README.md to examples.
 [Apple Fruit Scab Recognition using Deep Learning and PyTorch](https://debuggercafe.com/apple-fruit-scab-recognition-using-deep-learning-and-pytorch/)
 https://hackernoon.com/pytorch-vs-tensorflow-who-has-more-pre-trained-deep-learning-models
 https://colab.research.google.com/github/amalphonse/SPAIC_sg_fruit_360/blob/master/Ivy_Fruits360_With_Pytorch.ipynb#scrollTo=1B2FZeRqfiYA
+
+
+# Installing libraries
+
+https://pytorch.org/get-started/locally/
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117

@@ -92,7 +92,7 @@ The result is a binary mask converted.
 | tensor_conversion_01.py | Read images using read_image() conversion. |
 | tensor_conversion_02.py | Read images using PIL.Image.open() conversion. |
 | tensor_conversion_03.py | Read images using cv2.imread() conversion. |
-| tensor_conversion_04.py | Read images using cv2.imread() conversion to model MASK R-CNN and get OpenCV format. This is a good example of conversions in a pipeline with models. |
+| tensor_conversion_opencv_maskrcnn.py | Read images using cv2.imread() conversion to model MASK R-CNN and get OpenCV format. This is a good example of conversions in a pipeline with models. |
 
 
 # Model pipelines for bounding box (BBOX) and mask segmentation (MASK)

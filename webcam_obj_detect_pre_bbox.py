@@ -40,7 +40,7 @@ def main_loop_webcam():
     # -------------------------------------------
     time_1 = time.time()
     #obj_detector = ObjectDetectorFrame03(file_model_path)
-    obj_detector = ObjectDetectorPreTrainedBBOX()
+    obj_detector_bbox = ObjectDetectorPreTrainedBBOX()
     time_2 = time.time()
     time_total = time_2 - time_1
     # -------------------------------------------
@@ -53,7 +53,7 @@ def main_loop_webcam():
         # ----------------------------
         # make something with frame
         # ----------------------------
-        analyzed_image = obj_detector.object_detection_in_frame(frame, a_threshold)
+        analyzed_image = obj_detector_bbox.object_detection_in_frame(frame, a_threshold)
         # ----------------------------
 
         # ----------------------------

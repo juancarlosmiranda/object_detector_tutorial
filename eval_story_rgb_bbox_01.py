@@ -22,6 +22,9 @@ import os
 import time
 import torch
 import numpy as np
+import warnings
+warnings.filterwarnings("ignore",
+                        category=UserWarning)  # https://pytorch.org/blog/introducing-torchvision-new-multi-weight-support-api/
 
 # Managing images formats
 import torchvision.transforms.functional as F
@@ -59,9 +62,9 @@ def main_bbox_pennfundanped():
     # Open image with Pillow.Image.open()
     # -------------------------------------------
     # data about image to evaluate here, open with Pillow
-    image_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
-    path_image_to_eval = os.path.join(path_dataset_images, image_to_eval_name)
-    p_img_to_evaluate = Image.open(path_image_to_eval)  # {PngImageFile}
+    img_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
+    path_img_to_eval = os.path.join(path_dataset_images, img_to_eval_name)
+    p_img_to_eval = Image.open(path_img_to_eval)  # {PngImageFile}
 
     # ------------------------------------------
     # Model initialization for object prediction
@@ -81,7 +84,7 @@ def main_bbox_pennfundanped():
     # -------------------------------------
     # evaluation inside the object detector model, iterative task
     start_time_eval = time.time()  # this is the evaluation
-    int_input, tensor_input = read_transform_return(p_img_to_evaluate)
+    int_input, tensor_input = read_transform_return(p_img_to_eval)
     predictions_model = model(tensor_input.to(device_selected))
     end_time_eval = time.time()
 
@@ -121,11 +124,11 @@ def main_bbox_pennfundanped():
     # -------------------------------------
     total_time_model_load = end_time_model_load - start_time_model_load
     total_time_eval = end_time_eval - start_time_eval
-    h, w = p_img_to_evaluate.size
+    h, w = p_img_to_eval.size
     print('------------------------------------')
     print(f'Main parameters')
     print(f'path_dataset_images={path_dataset_images}')
-    print(f'path_img_to_evaluate_01={path_image_to_eval}')
+    print(f'path_img_to_evaluate_01={path_img_to_eval}')
     print(f'Image size width={w} height={h}')
     print(f'device_selected={device_selected}')
     print(f'score_threshold={score_threshold}')

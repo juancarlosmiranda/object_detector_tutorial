@@ -101,7 +101,17 @@ Resolver el tema de la GPU.
 META: TENER UN DETECTOR DE OBJETOS. Necesito ver como enlazar un detector de objetos al formato que ya tengo. Colocar un detector de objetos varios para hacer andar con la cámara web.
 Ver los tutoriales:
 https://pytorch.org/blog/torchvision03/
-https://colab.research.google.com/drive/1eAUjzV3nZXkUXi0spPg6zUHtJWaUSzFk?usp=sharing
 https://medium.com/jumio/object-detection-tutorial-with-torchvision-82b8f269f6ff
 https://pytorch.org/tutorials/intermediate/torchvision_tutorial.html
 https://pytorch.org/vision/stable/models.html
+
+
+Buen tutorial
+https://debuggercafe.com/object-detection-using-pytorch-faster-r-cnn-mobilenetv3/
+https://colab.research.google.com/drive/1eAUjzV3nZXkUXi0spPg6zUHtJWaUSzFk?usp=sharing
+Good option to train
+https://github.com/sovit-123/fasterrcnn-pytorch-training-pipeline
+
+
+https://pytorch.org/vision/stable/models.html#initializing-pre-trained-models
+

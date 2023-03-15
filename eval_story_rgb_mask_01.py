@@ -21,6 +21,9 @@ import os
 import time
 import torch
 import numpy as np
+import warnings
+# https://pytorch.org/blog/introducing-torchvision-new-multi-weight-support-api/
+warnings.filterwarnings("ignore", category=UserWarning)
 
 # Managing images formats
 from torchvision.io import read_image
@@ -65,10 +68,10 @@ def main_masks_story_rgb_01():
     # Open image with Pillow.Image.open() and torchvision.io.read_image()
     # -------------------------------------------
     image_to_eval_name = '20210927_114012_k_r2_e_000_150_138_2_0_C.png'
-    path_image_to_eval = os.path.join(path_dataset_images, image_to_eval_name)
-    p_img_to_evaluate = Image.open(path_image_to_eval)  # {PngImageFile}
+    path_img_to_eval = os.path.join(path_dataset_images, image_to_eval_name)
+    p_img_to_eval = Image.open(path_img_to_eval)  # {PngImageFile}
     # used to draw masks
-    img_to_eval_int = read_image(path_image_to_eval)  # {Tensor:3} Loads image in tensor format, get Tensor data
+    img_to_eval_int = read_image(path_img_to_eval)  # {Tensor:3} Loads image in tensor format, get Tensor data
     img_to_eval_float32 = F.convert_image_dtype(img_to_eval_int, torch.float32)
     img_to_eval_list = [img_to_eval_float32.to(device_selected)]
     # ------------------------------------------
@@ -86,7 +89,7 @@ def main_masks_story_rgb_01():
     # -------------------------------------
     start_time_eval = time.time()  # this is the evaluation
     # Data type int_input {Tensor:3}, tensor_input {Tensor:1}
-    int_input, tensor_input = read_transform_return(p_img_to_evaluate)  # Used to draw images on screen
+    int_input, tensor_input = read_transform_return(p_img_to_eval)  # Used to draw images on screen
     with torch.no_grad():
 #        predictions_model = model(tensor_input.to(device_selected))
         predictions_model = model(img_to_eval_list)
@@ -160,11 +163,11 @@ def main_masks_story_rgb_01():
     # -------------------------------------
     total_time_model_load = end_time_model_load - start_time_model_load
     total_time_eval = end_time_eval - start_time_eval
-    w, h = p_img_to_evaluate.size
+    w, h = p_img_to_eval.size
     print('------------------------------------')
     print(f'Main parameters')
     print(f'path_dataset_images={path_dataset_images}')
-    print(f'path_img_to_evaluate_01={path_image_to_eval}')
+    print(f'path_img_to_evaluate_01={path_img_to_eval}')
     print(f'Image size width={w} height={h}')
     print(f'device_selected={device_selected}')
     print(f'score_threshold={score_threshold}')
