@@ -13,8 +13,8 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
 
 from references.detection.engine import train_one_epoch, evaluate
-import utils
-import transforms as T
+from references.detection import utils
+import references.detection.transforms as T
 
 from penn_fundan_dataset import PennFudanDataset
 
@@ -53,8 +53,8 @@ def main():
     path_dataset = os.path.join(main_path_project, dataset_folder)
     # train on the GPU or on the CPU, if a GPU is not available
     device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    # device_selected = torch.device('cpu')
-    device_selected = torch.device('cuda')
+    device_selected = torch.device('cpu')
+    #device_selected = torch.device('cuda')
 
     #-------------------------------
     # config for files models

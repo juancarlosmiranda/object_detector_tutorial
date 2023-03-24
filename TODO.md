@@ -74,3 +74,7 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 
 # NVIDIA Deep Learning Examples
 https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Segmentation/MaskRCNN
+
+
+
+https://catalog.ngc.nvidia.com/orgs/nvidia/collections/nvidia_dlfw
