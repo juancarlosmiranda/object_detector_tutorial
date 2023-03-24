@@ -83,7 +83,7 @@ def tensor_conversion_opencv_fasterrcnn():
     # ------------------------------------------
     # Model initialization for object prediction
     # -------------------------------------------
-    # C:\Users\Usuari/.cache\torch\hub\checkpoints\fasterrcnn_resnet50_fpn_v2_coco-dd69338a.pth
+    # .cache\torch\hub\checkpoints\fasterrcnn_resnet50_fpn_v2_coco-dd69338a.pth
     score_threshold = 0.7
     start_time_model_load = time.time()
     #weights = FasterRCNN_ResNet50_FPN_Weights

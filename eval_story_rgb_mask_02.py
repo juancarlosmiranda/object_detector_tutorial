@@ -78,7 +78,6 @@ def main_masks_story_rgb_02():
     score_threshold = 0.8
     start_time_model_load = time.time()
     device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    #device_selected = torch.device('cpu')
     model = maskrcnn_resnet50_fpn(pretrained=True, progress=False)
     model.to(device_selected)
     model.eval()  # enabling evaluation mode

@@ -114,4 +114,8 @@ https://github.com/sovit-123/fasterrcnn-pytorch-training-pipeline
 
 
 https://pytorch.org/vision/stable/models.html#initializing-pre-trained-models
+https://pytorch.org/vision/stable/models.html#object-detection
+
+
+https://github.com/pytorch/pytorch#a-gpu-ready-tensor-library
 

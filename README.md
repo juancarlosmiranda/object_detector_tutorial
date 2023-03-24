@@ -18,6 +18,7 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 * [Penn-Fudan Database for Pedestrian Detection and Segmentation](https://www.cis.upenn.edu/~jshi/ped_html/)
 * [Pytorch - TorchVision Object Detection Finetuning Tutorial](http://pytorch.org/tutorials/intermediate/torchvision_tutorial.html)
 * [TorchVision Instance Segmentation Finetuning Tutorial](https://colab.research.google.com/github/dlmacedo/starter-academic/blob/master/content/courses/deeplearning/notebooks/pytorch/torchvision_finetuning_instance_segmentation.ipynb)
+* [Instance Segmentation with PyTorch and Mask R-CNN](https://debuggercafe.com/instance-segmentation-with-pytorch-and-mask-r-cnn/)
 
 ## Pytorch visualization utils
 * [torchvision](https://github.com/pytorch/vision)
@@ -92,7 +93,10 @@ The result is a binary mask converted.
 | tensor_conversion_01.py | Read images using read_image() conversion. |
 | tensor_conversion_02.py | Read images using PIL.Image.open() conversion. |
 | tensor_conversion_03.py | Read images using cv2.imread() conversion. |
+| tensor_conversion_opencv_fasterrcnn.py | Read images using cv2.imread() conversion to model FASTER R-CNN and get OpenCV format. This is a good example of conversions in a pipeline with models. |
+| tensor_conversion_opencv_fasterrcnn_02.py | Read images using cv2.imread() conversion to model FASTER R-CNN V2 and get OpenCV format. This is a good example of conversions in a pipeline with models. |
 | tensor_conversion_opencv_maskrcnn.py | Read images using cv2.imread() conversion to model MASK R-CNN and get OpenCV format. This is a good example of conversions in a pipeline with models. |
+
 
 
 # Model pipelines for bounding box (BBOX) and mask segmentation (MASK)

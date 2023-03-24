@@ -70,3 +70,7 @@ https://colab.research.google.com/github/amalphonse/SPAIC_sg_fruit_360/blob/mast
 https://pytorch.org/get-started/locally/
 pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
 pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
+
+# NVIDIA Deep Learning Examples
+https://github.com/NVIDIA/DeepLearningExamples/tree/master/PyTorch/Segmentation/MaskRCNN
