@@ -105,9 +105,9 @@ The result is a binary mask converted.
 
 | Folders                    | Description            |
 |---------------------------|-------------------------|
-| main_free_gpu_cache.py | Tool for clean GPU memory |
-| main_training_code.py | Code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
-| tv-training-code_corrected.py | Original code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
+| ./train_scripts/main_free_gpu_cache.py | Tool for clean GPU memory |
+| ./train_scripts/main_training_code.py | Code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
+| ./train_scripts/tv-training-code_corrected.py | Original code to train people detector using PennFudanPed/ dataset. This script produces a file with weights in format .pth |
 
 
 ## Evaluation
