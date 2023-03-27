@@ -1,6 +1,6 @@
 import torch
 import cv2
-import references.detection.transforms as T
+import training_utils.transforms as T
 from PIL import Image
 from detector.model_helper import get_model_instance_segmentation
 

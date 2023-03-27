@@ -10,7 +10,7 @@ December 2021
 """
 
 import torchvision
-import references.detection.transforms as T
+import training_utils.transforms as T
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
 

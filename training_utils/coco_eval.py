@@ -2,11 +2,10 @@ import copy
 import io
 from contextlib import redirect_stdout
 
+import torch
 import numpy as np
 import pycocotools.mask as mask_util
-import torch
-#import utils
-from references.detection import utils
+from training_utils import utils
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 

@@ -13,16 +13,12 @@ Adapted by Juan Carlos Miranda as a programming practice, February 2021.
 
 Use:
 """
-import time
 import os
 import torch
-import references.detection.utils as utils
-import gc
-
-
+import training_utils.utils as utils
 
 from penn_fundan_dataset import PennFudanDataset
-from references.detection.engine import train_one_epoch, evaluate
+from training_utils.engine import train_one_epoch, evaluate
 from detector.model_helper import get_model_instance_segmentation, get_transform
 
 
@@ -75,7 +71,7 @@ def main_loop_training():
     dataset = torch.utils.data.Subset(dataset, indices[:-50])
     dataset_test = torch.utils.data.Subset(dataset_test, indices[-50:])
 
-    # define training and validation data loaders
+    # define training_utils and validation data loaders
     # todo: check these parameters
     batch_size = 2 #8  # 2   -  1
     num_workers = 4 #16  # 4
@@ -106,7 +102,7 @@ def main_loop_training():
         lr_scheduler.step()
         # evaluate on the test dataset
         evaluate(model, data_loader_test, device=device_selected)
-    print('Finished training')
+    print('Finished training_utils')
 
 
     print(f'num_epochs to train ->{num_epochs}')

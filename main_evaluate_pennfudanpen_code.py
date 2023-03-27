@@ -22,12 +22,8 @@ import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
 
-import references.detection.transforms as T
-import torchvision.transforms.functional as F
-
 from penn_fundan_dataset import PennFudanDataset
 from PIL import Image
-from helpers.helper_examples import merge_masks
 from helpers.helper_examples import get_transform
 
 def get_model_instance_segmentation(num_classes):
@@ -92,6 +88,7 @@ def main_evaluate_pennfundanpen_loop():
     # ----------------------------
 
     # ----------------------------
+    # use our dataset and defined transformations
     dataset = PennFudanDataset(path_dataset, get_transform(train=True))
     dataset_test = PennFudanDataset(path_dataset, get_transform(train=False))
     indices = torch.randperm(len(dataset)).tolist()

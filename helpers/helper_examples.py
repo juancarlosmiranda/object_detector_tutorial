@@ -11,9 +11,8 @@ import torch
 import numpy as np
 
 # Managing images formats
-from torchvision.io import read_image
 from PIL import Image
-import references.detection.transforms as T
+import training_utils.transforms as T
 import torchvision.transforms.functional as F
 from torchvision import transforms as transforms
 
