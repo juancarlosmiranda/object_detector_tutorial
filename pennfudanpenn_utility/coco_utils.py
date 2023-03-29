@@ -5,7 +5,7 @@ import torch
 import torch.utils.data
 import torchvision
 
-import training_utils.transforms as T
+import pennfudanpenn_utility.transforms as T
 from pycocotools import mask as coco_mask
 from pycocotools.coco import COCO
 

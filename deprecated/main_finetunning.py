@@ -6,7 +6,6 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 #from torchvision import transforms
 #import matplotlib.pyplot as plt
 from device_data_loader import *
-from penn_fundan_dataset import PennFudanDataset
 
 if __name__ == '__main__':
     print('------------------------------------')

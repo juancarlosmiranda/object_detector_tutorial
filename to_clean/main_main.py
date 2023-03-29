@@ -15,7 +15,7 @@ def main_loop_general_object_detection():
 
     model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
     # set it to evaluation mode, as the model behaves differently
-    # during training_utils and during evaluation
+    # during pennfudanpenn_utility and during evaluation
     model.eval()
     image = Image.open(os.path.join(path_dataset, test_image_name))
 

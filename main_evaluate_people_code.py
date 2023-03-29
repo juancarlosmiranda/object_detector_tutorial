@@ -88,7 +88,7 @@ def main_evaluate_people_loop():
     # -------------------------------------------
     trained_model_folder = 'trained_model'
     trained_model_path = os.path.join(main_path_project, trained_model_folder)
-    file_name_model = 'MODEL_SAVED.pth'
+    file_name_model = 'model_maskrcnn_20230329_173739.pth'
     file_model_path = os.path.join(trained_model_path, file_name_model)
     # -------------------------------------------
 

@@ -11,9 +11,9 @@ import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
 
-from training_utils.engine import train_one_epoch, evaluate
+from pennfudanpenn_utility.engine import train_one_epoch, evaluate
 
-import training_utils.transforms as T
+import pennfudanpenn_utility.transforms as T
 import gc
 
 
@@ -166,7 +166,7 @@ def main():
 
     # ------------------------------
 
-    # define training_utils and validation data loaders
+    # define pennfudanpenn_utility and validation data loaders
     #data_loader = torch.utils.data.DataLoader(dataset, **params)
     #data_loader_test = torch.utils.data.DataLoader(dataset_test, **params)
 

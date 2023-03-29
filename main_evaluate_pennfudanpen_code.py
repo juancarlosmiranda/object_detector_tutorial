@@ -22,7 +22,7 @@ import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
 
-from penn_fundan_dataset import PennFudanDataset
+from pennfudanpenn_data.penn_fundan_dataset import PennFudanDataset
 from PIL import Image
 from helpers.helper_examples import get_transform
 
@@ -61,7 +61,7 @@ def main_evaluate_pennfundanpen_loop():
     # -------------------------------------------
     # Datasets
     # -------------------------------------------
-    dataset_folder = os.path.join('dataset', 'PennFudanPed')  # YOUR_DATASET HERE
+    dataset_folder = os.path.join('dataset', 'PennFudanPed_01')  # YOUR_DATASET HERE
     path_dataset = os.path.join(main_path_project, dataset_folder)
 
     # -------------------------------------------
@@ -69,7 +69,7 @@ def main_evaluate_pennfundanpen_loop():
     # -------------------------------------------
     trained_model_folder = 'trained_model'
     trained_model_path = os.path.join(main_path_project, trained_model_folder)
-    file_name_model = 'MODEL_SAVED.pth'
+    file_name_model = 'model_maskrcnn_20230329_173739.pth'
     file_model_path = os.path.join(trained_model_path, file_name_model)
     # -------------------------------------------
 

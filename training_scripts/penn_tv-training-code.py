@@ -3,16 +3,17 @@
 
 import os
 import time
+from datetime import datetime
 
 import torch
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
 
-from training_utils.engine import train_one_epoch, evaluate
+from pennfudanpenn_utility.engine import train_one_epoch, evaluate
 
-import training_utils.utils as utils
-import training_utils.transforms as T
+import pennfudanpenn_utility.utils as utils
+import pennfudanpenn_utility.transforms as T
 
 from penn_fundan_dataset import PennFudanDataset
 
@@ -50,41 +51,43 @@ def main_penn_loop_training():
     dataset_folder = os.path.join('dataset', 'PennFudanPed_02')
     path_dataset = os.path.join(main_path_project, dataset_folder)
     # train on the GPU or on the CPU, if a GPU is not available
-    device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    device_selected = torch.device('cpu')
+    #device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     #device_selected = torch.device('cuda')
-
     #-------------------------------
     # config for files models
     #-------------------------------
     trained_model_folder = 'trained_model'  # put here YOUR_FOLDER
     trained_model_path = os.path.join(main_path_project, trained_model_folder)
-    file_name_model = 'MODEL_SAVED.pth'  # put here YOUR_FILE_NAME
-    file_model_path = os.path.join(trained_model_path, file_name_model)
+    # --------------------------------
+    # PREPARING FILE NAME
+    # --------------------------------
+    now = datetime.now()
+    datetime_experiment = now.strftime("%Y%m%d_%H%M%S")
+    filename_model = 'model_maskrcnn_{}.pth'.format(datetime_experiment)
+    filename_model_path = os.path.join(trained_model_path, filename_model)
     #-------------------------------
 
     # --------------------------------------------
     # parameters
     # --------------------------------------------
+    device_selected = torch.device('cpu')
+    num_epochs = 1  # let's train it for 10 epochs
     batch_size = 2  # 64  # it increments the amount of memory to allocate
-    num_workers = 12
-    print_freq = 20
+    num_workers = 4
+    num_classes = 2  # our dataset has two classes only - background and person
     # ---
     # optimizer
     # ---
-    lr = 0.005
+    lr = 0.02
     momentum = 0.9
-    weight_decay = 0.0005 #0.0005
+    weight_decay = 1e-4 # 0.0005 #0.0005
     # ---
-    #lr_scheduler
+    # lr_scheduler
     step_size = 3
     gamma = 0.1
     # ---
-    num_epochs = 1  # let's train it for 10 epochs
-    num_classes = 2  # our dataset has two classes only - background and person
+    print_freq = 10
     # --------------------------------------------
-    start_time_training = time.time()
-
     # use our dataset and defined transformations
     dataset = PennFudanDataset(path_dataset, get_transform(train=True))
     dataset_test = PennFudanDataset(path_dataset, get_transform(train=False))
@@ -108,24 +111,28 @@ def main_penn_loop_training():
     # and a learning rate scheduler
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=step_size, gamma=gamma)
 
+    print("Start training")
+    start_time_training = time.time()
+    # -------------------------------------------
     for epoch in range(num_epochs):
         # train for one epoch, printing every print_freq iterations
         train_one_epoch(model, optimizer, data_loader, device_selected, epoch, print_freq=print_freq)
         # update the learning rate
         lr_scheduler.step()
-        # evaluate on the test dataset
+        # evaluate after every epoch
+        print(f'Evaluating epoch {epoch}')
         evaluate(model, data_loader_test, device=device_selected)
-
+    # -------------------------------------------
     end_time_training = time.time()
     total_time_training = end_time_training - start_time_training
-
+    # -------------------------------------------
     print('Finished training')
     print(f'total_time_training={total_time_training}')
-    print('Training complete in {:.0f}m {:.0f}s'.format(end_time_training // 60, end_time_training % 60))
+    print('Training time:', time.strftime("%H:%M:%S", time.gmtime(total_time_training)))
     print(f'device_selected ->{device_selected}')
     print(f'model={type(model).__name__}')
-    print('Saving model in file ->', file_model_path)
-    torch.save(model.state_dict(), file_model_path)
+    print('Saving model in file ->', filename_model_path)
+    torch.save(model.state_dict(), filename_model_path)
 
 if __name__ == "__main__":
     main_penn_loop_training()

@@ -12,7 +12,7 @@ import numpy as np
 
 # Managing images formats
 from PIL import Image
-import training_utils.transforms as T
+import pennfudanpenn_utility.transforms as T
 import torchvision.transforms.functional as F
 from torchvision import transforms as transforms
 
