@@ -137,7 +137,7 @@ Testing bounding box models(BBOX) and mask segmentation models (MASK) sequence i
 |---------------------------|-------------------------|
 | eval_story_rgb_bbox_01.py | Detecting people using story_rgb/ dataset with from torchvision.models.detection.fasterrcnn_resnet50_fpn pretrained model |
 | eval_story_rgb_mask_01.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model |
-| eval_story_rgb_mask_02.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model  saving data in an output/ folder|
+| IMPORTANT! eval_story_rgb_mask_02.py | Detecting apples using story_rgb/ dataset with from from torchvision.models.detection import maskrcnn_resnet50_fpn pretrained model  saving data in an output/ folder|
 
 
 Checking the trained weight in a .pth file with a MASK R-CNN model.

@@ -145,15 +145,16 @@ def main_masks_story_rgb_02():
     w, h = p_img_to_eval.size
     print('------------------------------------')
     print(f'Main parameters')
+    print(f'Image size width={w} height={h}')
     print(f'path_dataset_images={path_dataset_images}')
     print(f'path_img_to_evaluate_01={path_img_to_eval}')
-    print(f'Image size width={w} height={h}')
     print(f'device_selected={device_selected}')
     print(f'score_threshold={score_threshold}')
     print(f'model={type(model).__name__}')
     print(f'total_time_model_load={total_time_model_load}')
     print(f'total_time_eval={total_time_eval}')
-
+    print(f'path_image_01_result_rgb={path_image_01_result_rgb}')
+    print(f'path_image_01_result_mask={path_image_01_result_mask}')
 
 # https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html
 # https://debuggercafe.com/an-introduction-to-pytorch-visualization-utilities/
