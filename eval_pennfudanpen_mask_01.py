@@ -53,7 +53,7 @@ def main_mask_pennfundanped():
     # -------------------------------------------
     # Datasets
     # -------------------------------------------
-    dataset_folder = os.path.join('dataset', 'PennFudanPed')  # YOUR_DATASET HERE
+    dataset_folder = os.path.join('dataset', 'PennFudanPed_01')  # YOUR_DATASET HERE
     path_dataset = os.path.join(main_path_project, dataset_folder)
     path_images_folder = 'PNGImages'
     path_dataset_images = os.path.join(path_dataset, path_images_folder)

@@ -52,7 +52,7 @@ def main_penn_loop_training():
     path_dataset = os.path.join(main_path_project, dataset_folder)
     # train on the GPU or on the CPU, if a GPU is not available
     #device_selected = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-    #device_selected = torch.device('cuda')
+    device_selected = torch.device('cuda')
     #-------------------------------
     # config for files models
     #-------------------------------

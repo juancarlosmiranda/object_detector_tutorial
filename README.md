@@ -5,31 +5,42 @@ original code was adapted from [Pytorch - TorchVision Object Detection Finetunin
 detection and segmentation pipeline as a programming practice. It is true that not all aspects can be covered.
 It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fudan Database from [here](https://www.cis.upenn.edu/~jshi/ped_html/PennFudanPed.zip)
 
+
 ## Models used and tools used
 * Python 3, [Pytorch](https://pytorch.org/.
 * [Mask R-CNN](https://arxiv.org/abs/1703.06870)
 * [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://arxiv.org/abs/1506.01497)
 * [Models and pre-trained weights](https://pytorch.org/vision/stable/models.html#models-and-pre-trained-weights)
 
+## Datsets
+* [Penn-Fudan Database for Pedestrian Detection and Segmentation](https://www.cis.upenn.edu/~jshi/ped_html/)
+
+## Deep learning courses
+* [Deep Learning courses](https://dlmacedo.com/courses/deeplearning/)
 
 ## Links to tutorials, useful information
 * [David Macêdo](https://github.com/dlmacedo)
-* [Deep Learning courses](https://dlmacedo.com/courses/deeplearning/)
-* [Penn-Fudan Database for Pedestrian Detection and Segmentation](https://www.cis.upenn.edu/~jshi/ped_html/)
-* [Pytorch - TorchVision Object Detection Finetuning Tutorial](http://pytorch.org/tutorials/intermediate/torchvision_tutorial.html)
+* [TorchVision Object Detection Finetuning Tutorial](https://pytorch.org/tutorials/intermediate/torchvision_tutorial.html#torchvision-object-detection-finetuning-tutorial). Good explanation about the use of classes for custom datasets.
 * [TorchVision Instance Segmentation Finetuning Tutorial](https://colab.research.google.com/github/dlmacedo/starter-academic/blob/master/content/courses/deeplearning/notebooks/pytorch/torchvision_finetuning_instance_segmentation.ipynb)
 * [Instance Segmentation with PyTorch and Mask R-CNN](https://debuggercafe.com/instance-segmentation-with-pytorch-and-mask-r-cnn/)
+* [Object Detection using PyTorch Faster R-CNN MobileNetV3](https://debuggercafe.com/object-detection-using-pytorch-faster-r-cnn-mobilenetv3/).
+* [Object Detection Tutorial with Torchvision](https://medium.com/jumio/object-detection-tutorial-with-torchvision-82b8f269f6ff).
+* [Object detection reference training scripts](https://github.com/pytorch/vision/tree/main/references/detection). Reference training scripts for object detection.
 
-## Pytorch visualization utils
+## Pytorch visualization utils Torchvision
 * [torchvision](https://github.com/pytorch/vision)
 * [Pytorch visualization utils](https://pytorch.org/vision/stable/utils.html)
 * [Example gallery](https://pytorch.org/vision/stable/auto_examples/index.html)
 * [An Introduction to PyTorch Visualization Utilities](https://debuggercafe.com/an-introduction-to-pytorch-visualization-utilities/)
 * [Visualization utilities](https://pytorch.org/vision/main/auto_examples/plot_visualization_utils.html)
-  https://pytorch.org/vision/master/auto_examples/plot_visualization_utils.html
-* [Transforming and augmenting images](https://pytorch.org/vision/stable/transforms.html)
 * [torchvision - read_image()](https://pytorch.org/vision/main/generated/torchvision.io.read_image.html)
 * [REPURPOSING MASKS INTO BOUNDING BOXES](https://pytorch.org/vision/main/auto_examples/plot_repurposing_annotations.html#sphx-glr-auto-examples-plot-repurposing-annotations-py)
+* [Transforming and augmenting images](https://pytorch.org/vision/stable/transforms.html)
+
+## Pytorch Models and pre-trained weights
+* [Models and pre-trained weights](https://pytorch.org/vision/stable/models.html)
+
+
 
 ## Pytorch tensors
 * With video [Introduction to PyTorch Tensors](https://pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html)
@@ -38,6 +49,7 @@ It uses pre-trained models from [Pytorch](https://pytorch.org/) and the Penn-Fud
 * [Pytorch Converting tensors to images](https://discuss.pytorch.org/t/converting-tensors-to-images/99482)
 * Good tutorial about Numpy. [Introduction to NumPy and OpenCV](http://vision.deis.unibo.it/~smatt/DIDATTICA/Sistemi_Digitali_M/PDF/Introduction_to_NumPy_and_OpenCV.pdf)
 * [Data transfer to and from PyTorch](https://www.simonwenkel.com/notes/software_libraries/opencv/opencv-cuda-integration.html#accessing-gpumat-as-pytorch-tensor)
+* [Beginners guide to Tensor operations in PyTorch](https://blog.jovian.com/beginners-guide-to-tensor-operations-in-pytorch-8a122fec6dd8).
 
 
 ## Conversions between image formats
@@ -97,7 +109,8 @@ The result is a binary mask converted.
 | tensor_conversion_opencv_fasterrcnn_02.py | Read images using cv2.imread() conversion to model FASTER R-CNN V2 and get OpenCV format. This is a good example of conversions in a pipeline with models. |
 | tensor_conversion_opencv_maskrcnn.py | Read images using cv2.imread() conversion to model MASK R-CNN and get OpenCV format. This is a good example of conversions in a pipeline with models. |
 
-
+This link explains, about data type conversion.
+* [Creating and training a U-Net model with PyTorch for 2D & 3D semantic segmentation: Dataset building [1/4]](https://towardsdatascience.com/creating-and-training-a-u-net-model-with-pytorch-for-2d-3d-semantic-segmentation-dataset-fb1f7f80fe55)
 
 # Model pipelines for bounding box (BBOX) and mask segmentation (MASK)
 
@@ -151,9 +164,9 @@ Checking the trained weight in a .pth file with a MASK R-CNN model.
 ## Hardware and software stack used
 
 * Ubuntu 20.04.3 LTS 64 bits.
+* Windows 10
 * Intel® Core™ i7-8750H CPU @ 2.20GHz × 12.
 * GeForce GTX 1050 Ti Mobile.
-* Windows 10
 * Python 3.8.10
 
 ## Edition tools
