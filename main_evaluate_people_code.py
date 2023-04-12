@@ -99,7 +99,8 @@ def main_evaluate_people_loop():
     num_classes = 2
     start_time_model_load = time.time()
     model = get_model_instance_segmentation(num_classes)
-    model.load_state_dict(torch.load(file_model_path))  # equivalent to maskrcnn_resnet50_fpn(), but with file loading
+    checkpoint = torch.load(file_model_path)
+    model.load_state_dict(checkpoint)  # equivalent to maskrcnn_resnet50_fpn(), but with file loading
     model.to(device_selected)
     model.eval()  # enabling evaluation mode
     end_time_model_load = time.time()
